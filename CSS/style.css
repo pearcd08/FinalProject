@@ -1,0 +1,247 @@
+body {
+  background-color: lightslategray;
+}
+#topMenu {
+  width: 100%;
+  height: 100px;
+  top: -25px;
+}
+
+#topMenu h1 {
+  text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: orange;
+  font-size: 48px;
+  text-shadow: 2px 2px black;
+}
+#bookingContainer {
+  background-color: seagreen;
+  width: 95%;
+  height: 1800px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  border-radius: 7px;
+  position: relative;
+}
+
+#title {
+  display: block;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+
+#inputContainer {
+  position: absolute;
+  font-size: 30px;
+  font-family: "Trebuchet MS";
+  background-color: white;
+  width: 300px;
+  height: 350px;
+  margin-left: 100px;
+  border-radius: 7px;
+}
+
+#priceContainer {
+  position: absolute;
+  background-color: white;
+  width: 300px;
+  height: 350px;
+  margin-left: 77%;
+  border-radius: 7px;
+}
+#priceContainer label {
+  margin-left: 30px;
+  text-align: left;
+  color: black;
+  font-size: 24px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+input[type="text"] {
+  width: 175px;
+  height: 40px;
+
+  margin-left: 30px;
+  border-radius: 7px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+}
+
+
+
+select {
+  width: 175px;
+  height: 40px;
+  margin-left: 30px;
+  border-radius: 7px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+}
+
+input[type="date"] {
+  width: 170px;
+  height: 35px;
+  margin-left: 30px;
+  border-radius: 7px;
+  color: black;
+  font-size: 20px;
+}
+
+#inputContainer label {
+  margin-left: 30px;
+  text-align: left;
+  color: black;
+  font-size: 24px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+
+#menuContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+
+  height: 200px;
+  margin-top: 500px;
+  margin-left: 100px;
+}
+
+#menuContainer .food {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 50px;
+  width: 300px;
+  height: 450px;
+  border: 3px solid black;
+  background-color: white;
+}
+
+#menuContainer h1 {
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 30px;
+}
+
+#menuContainer p {
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-style: italic;
+  font-size: 20px;
+}
+
+.button {
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  font-family: "Trebuchet MS";
+  color: white;
+  border: none;
+  border-radius: 7px;
+  background-color: orange;
+}
+#button1 {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+#button2 {
+  display: inline-block;
+  margin-left: 60px;
+}
+
+#button3 {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.button:hover {
+  background-color: darkorange;
+  color: black;
+  transition: 0.1s;
+}
+
+
+
+
+
+#boatContainer {
+  margin-left: 39%;
+}
+
+#tereBoat .row {
+  display: flex;
+}
+
+#tereBoat #row1,
+#tereBoat #row2,
+#tereBoat #row9 {
+  margin-left: 50px;
+}
+
+#nuiBoat .row {
+  display: flex;
+}
+
+#nuiBoat #row1,
+#nuiBoat #row2 {
+  margin-left: 100px;
+}
+#nuiBoat #row3,
+#nuiBoat #row4,
+#nuiBoat #row12,
+#nuiBoat #row13 {
+  margin-left: 50px;
+}
+
+.seat {
+  background-color: white;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.seat:hover {
+  cursor: pointer;
+  background-color: aqua;
+}
+
+.booked {
+  background-color: orange;
+}
+
+.booked:hover {
+  cursor: not-allowed;
+  background-color: red;
+}
+
+.selected {
+  background-color: greenyellow;
+  margin: 5px;
+}
+
+.confirmed {
+  background-color: blue;
+}
+
+.confirmed:hover {
+  cursor: not-allowed;
+  background-color: red;
+}
+
+.booked:hover {
+  cursor: not-allowed;
+  background-color: pink;
+}

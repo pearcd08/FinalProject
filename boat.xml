@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<boat>
+    <tere>
+        <row id = "row1">
+            <seats>6</seats>
+            <price>30</price>
+         </row>
+         <row id = "row2">
+             <seats>6</seats>
+             <price>30</price>
+          </row>
+          <row id = "row3">
+             <seats>8</seats>
+             <price>25</price>
+          </row>
+          <row id = "row4">
+             <seats>8</seats>
+             <price>25</price>
+          </row>
+          <row id = "row5">
+             <seats>8</seats>
+             <price>25</price>
+          </row>
+          <row id = "row6">
+             <seats>8</seats>
+             <price>20</price>
+          </row>
+          <row id = "row7">
+             <seats>8</seats>
+             <price>20</price>
+          </row>     
+          <row id = "row8">
+             <seats>8</seats>
+             <price>20</price>
+          </row>
+          <row id = "row9">
+             <seats>6</seats>
+             <price>20</price>
+          </row>
+        
+         
+    </tere>
+    <nui>
+        <row id = "row1">
+           <seats>4</seats>
+           <price>30</price>
+        </row>
+        <row id = "row2">
+            <seats>4</seats>
+            <price>30</price>
+         </row>
+         <row id = "row3">
+            <seats>6</seats>
+            <price>25</price>
+         </row>
+         <row id = "row4">
+            <seats>6</seats>
+            <price>25</price>
+         </row>
+         <row id = "row5">
+            <seats>8</seats>
+            <price>25</price>
+         </row>
+         <row id = "row6">
+            <seats>8</seats>
+            <price>20</price>
+         </row>
+         <row id = "row7">
+            <seats>8</seats>
+            <price>20</price>
+         </row>     
+         <row id = "row8">
+            <seats>8</seats>
+            <price>20</price>
+         </row>
+         <row id = "row9">
+            <seats>8</seats>
+            <price>20</price>
+         </row>
+         <row id = "row10">
+            <seats>8</seats>
+            <price>20</price>
+         </row>
+         <row id = "row11">
+            <seats>8</seats>
+            <price>20</price>
+         </row>
+         <row id = "row12">
+            <seats>6</seats>
+            <price>20</price>
+         </row>
+         <row id = "row13">
+            <seats>6</seats>
+            <price>20</price>
+         </row>
+    </nui>
+    <menu>
+        <food>
+            <name>Cheeseburger</name>
+            <price>12</price>
+            <info>Contains Dairy</info>
+            <image>/images/cheeseburger.jpg</image>
+        </food>
+        <food>
+            <name>BLT Sandwich</name>
+            <price>10</price>
+            <info>Contains Dairy</info>
+            <image>/images/blt.jpg</image>
+        </food>
+        <food>
+            <name>Meat Pie</name>
+            <price>8</price>
+            <info>Contains Dairy</info>
+            <image>/images/meatpie.jpg</image>
+        </food>
+        <food>
+            <name>Sushi</name>
+            <price>9</price>
+            <info>Dairy Free</info>
+            <image>/images/sushi.jpg</image>
+        </food>
+        <food>
+            <name>Salad</name>
+            <price>6</price>
+            <info>Dairy Free</info>
+            <image>/images/salad.jpg</image>
+        </food>
+        <food>
+            <name>Fish and Chips</name>
+            <price>20</price>
+            <info>Contains Dairy</info>
+            <image>/images/fish.jpeg</image>
+        </food>
+    </menu>
+   
+   
+   
+</boat>

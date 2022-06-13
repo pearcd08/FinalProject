@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <script src="JS/boatScript.js"></script>
+</head>
+
+<body onload="displayPageOne()">
+    <div id=topMenu>
+        <h1>Wakatipu Boat Adventure</h1>
+    </div>
+    <div id=bookingContainer>
+        <div id="page1" style="display: none">
+            <div id="title">
+                <h1>Boat Booking</h1>
+            </div>
+           
+            <div id="priceContainer">
+                <label for="totalSeats">Selected Seats</label>
+                <br>
+                <input type="text" id="totalSeats" />
+                <br>
+                <br>
+                <label for="totalCost">Total Cost</label>
+                <br>
+                <input type="text" id="totalPrice" />
+                <br>
+                <button id="button3" class ="button" onclick="confirmSeats()">Confirm seats</button>
+
+            </div>
+
+            <div id="inputContainer">
+
+                <label for="bookingDate">Booking Date</label>
+                <br>
+                <input type="date" id="bookingDate" />
+                <br>
+                <br>
+                <label for="selectTime">Time</label>
+                <br>
+                <select id="timeSelect">
+                    <option value="tere">10:00</option>
+                    <option value="nui">14:00</option>
+                </select>
+                <br>
+                <br>
+                <label for="boatSelect">Boat</label>
+                <br>
+                <select id="boatSelect">
+                    <option value="tere">Tere Boat</option>
+                    <option value="nui">Nui Boat</option>
+                </select>
+                <br>
+
+                <button id="button1" class = "button" onclick="displayPageTwo()">Next</button>
+                <button id="button2" class= "button" onclick="backButton()">Back</button>
+
+
+
+
+
+
+            </div>
+            <div id="boatContainer" class="boatContainer"></div>
+
+
+        </div>
+        <div id="menuContainer">
+        </div>
+
+
+    </div>
+
+    </div>
+
+
+
+</body>
+
+</html>
