@@ -1,5 +1,6 @@
 body {
-  background-color: lightslategray;
+  background-color: darkseagreen
+
 }
 #topMenu {
   width: 100%;
@@ -16,9 +17,9 @@ body {
   text-shadow: 2px 2px black;
 }
 #bookingContainer {
-  background-color: seagreen;
+  background-color: darkslategrey;
   width: 95%;
-  height: 1800px;
+  height: 2800px;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
@@ -37,7 +38,6 @@ body {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
-
 
 #inputContainer {
   position: absolute;
@@ -78,8 +78,6 @@ input[type="text"] {
   font-size: 20px;
 }
 
-
-
 select {
   width: 175px;
   height: 40px;
@@ -108,15 +106,125 @@ input[type="date"] {
     "Lucida Sans", Arial, sans-serif;
 }
 
-
 #menuContainer {
+  position: absolute;
   display: grid;
   grid-template-columns: repeat(3, 350px);
 
-  height: 200px;
-  margin-top: 500px;
+  top: 800px;
   margin-left: 100px;
 }
+#cartContainer {
+  position: absolute;
+  background-color: white;
+  width: 525px;
+  height: 100px;
+  left: 1200px;
+  top: 850px;
+  border: 1px solid black;
+  background-color: white;
+}
+#confirmCartButton{
+  margin-top: 20px;
+  margin-left: 110px;
+  color: black;
+  background-color: gold;
+  margin-top: auto;
+  margin-bottom: auto;
+  
+}
+.cartRow {
+  display: grid;
+  grid-template-columns: repeat(4, 140px);
+  border-bottom: 1px solid black;
+  background-color: white;
+ 
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+}
+.cartRow input{
+  width: 60px;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: repeat(4, 140px);
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  color: white;
+  background-color: forestgreen;
+
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+}
+
+#bottomRow {
+  display: grid;
+  grid-template-columns: repeat(3, 140px); 
+  border-bottom: 1px solid black;
+  color: white;
+  background-color: forestgreen;
+
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+}
+
+.cartRow button {
+  background-color: red;
+  color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 70px;
+  
+
+  height: 30px;
+  font-size: 16px;
+  font-family: "Trebuchet MS";
+ 
+  border: none;
+  border-radius: 7px;
+  background-color: red;
+}
+
+#bookingDetails{
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(1, 300px);
+  background-color: white;
+  width: 525px;
+  height: 600px;
+  left: 575px;
+  top: 2000px;
+  border: 1px solid black;
+ 
+
+}
+
+#bookingDetails p{ 
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+  width:300px;
+  margin-left: 30px;
+
+}
+
+#bookingDetails button{ 
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+ 
+  margin-left: 30px;
+
+}
+
+
 
 #menuContainer .food {
   margin-left: 15px;
@@ -128,7 +236,7 @@ input[type="date"] {
   background-color: white;
 }
 
-#menuContainer h1 {
+h1 {
   text-align: center;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 30px;
@@ -137,11 +245,17 @@ input[type="date"] {
 #menuContainer p {
   padding-left: 25px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-style: italic;
+
   font-size: 20px;
 }
 
-.button {
+#menuContainer button {
+  margin-left: 20px;
+  background-color: forestgreen;
+  color: white;
+}
+
+button {
   width: 100px;
   height: 30px;
   font-size: 16px;
@@ -149,7 +263,7 @@ input[type="date"] {
   color: white;
   border: none;
   border-radius: 7px;
-  background-color: orange;
+  background-color: forestgreen;
 }
 #button1 {
   display: inline-block;
@@ -171,10 +285,6 @@ input[type="date"] {
   color: black;
   transition: 0.1s;
 }
-
-
-
-
 
 #boatContainer {
   margin-left: 39%;

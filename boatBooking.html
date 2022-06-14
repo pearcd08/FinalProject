@@ -19,7 +19,7 @@
             <div id="title">
                 <h1>Boat Booking</h1>
             </div>
-           
+
             <div id="priceContainer">
                 <label for="totalSeats">Selected Seats</label>
                 <br>
@@ -30,7 +30,7 @@
                 <br>
                 <input type="text" id="totalPrice" />
                 <br>
-                <button id="button3" class ="button" onclick="confirmSeats()">Confirm seats</button>
+                <button id="button3" class="button" onclick="confirmSeats()">Confirm</button>
 
             </div>
 
@@ -57,21 +57,54 @@
                 </select>
                 <br>
 
-                <button id="button1" class = "button" onclick="displayPageTwo()">Next</button>
-                <button id="button2" class= "button" onclick="backButton()">Back</button>
-
-
-
-
-
+                <button id="button1" class="button" onclick="displayPageTwo()">Next</button>
+                <button id="button2" class="button" onclick="backButton()">Back</button>
 
             </div>
             <div id="boatContainer" class="boatContainer"></div>
 
 
         </div>
-        <div id="menuContainer">
+        <div id="menuContainer"></div>
+        <div id="cartContainer" class="cartContainer">
+            <h1>Shopping Cart</h1>
+            <div class=topRow>
+                <p>Food</p>
+                <p>Price</p>
+                <p>Quantity</p>
+            </div>
+            <div id="rowContainer"></div>
+            <div id="bottomRow">              
+                <p>Cart Price:</p>
+                <p id="cartPrice"></p>
+                <button id="confirmCartButton" class="button" onclick="confirmBooking()">Confirm</button>
+
+            </div>
+          
+    
+
+
         </div>
+        <div id="bookingDetails">
+
+            <p id="finalBookingDate"></p>
+
+            <p id="finalBookingTime"></p>
+
+            
+            <p id="finalBookingBoat"></p>
+
+            <p id="finalSeats"></p>
+
+            <p id="finalBookingPrice"></p>
+
+            <p id="finalCartPrice"></p>
+
+            <p id="finalTotalPrice"></p>
+            <button class = "button" onclick="refresh()">Confirm</button>
+        </div>
+   
+
 
 
     </div>
