@@ -10,16 +10,80 @@
     <script src="JS/boatScript.js"></script>
 </head>
 
-<body onload="displayPageOne()">
+<body onload="initiate()">
     <div id=topMenu>
         <h1>Wakatipu Boat Adventure</h1>
     </div>
     <div id=bookingContainer>
-        <div id="page1" style="display: none">
+        <div id="page1" style="display: block">
             <div id="title">
-                <h1>Boat Booking</h1>
+                <h1>Select Date</h1>
             </div>
+            <div id="inputContainer">
+                <label for="bookingDate">Booking Date</label>
+                <input type="date" id="bookingDate" />
+                <label for="selectTime">Time</label>
+                <select id="timeSelect">
+                    <option value="tere">10:00</option>
+                    <option value="nui">14:00</option>
+                </select>
+                <label for="boatSelect">Boat</label>
+                <select id="boatSelect">
+                    <option value="tere">Tere Boat</option>
+                    <option value="nui">Nui Boat</option>
+                </select>
+                <label for="peopleSelect">Number of People</label>
+                <input type="number" id="peopleSelect" min="1" max="5">
+                </input>
+                <button id="button1" class="button" onclick="displayPageTwo()">Next</button>
+            </div>
+            <div id="weatherContainer">
+                <div id="iconsContainer">
 
+                    <div class="icons">
+                        <p class="weather" id="today"></p>
+                        <div class="image"></div>
+                        <p class="date" id="todayDate"></p>
+                        <p class="maxTemp" id="todayMax"></p>
+                        <p class="weatherDescription" id="todayDesc"></p>
+                    </div>
+                    <div class="icons">
+                        <p class="weather" id="day2"></p>
+                        <div class="image"></div>
+                        <p class="date" id="day2Date"></p>
+                        <p class="maxTemp" id="day2Max"></p>
+                        <p class="weatherDescription" id="day2Desc"></p>
+                    </div>
+                    <div class="icons">
+                        <p class="weather" id="day3"></p>
+                        <div class="image"></div>
+                        <p class="date" id="day3Date"></p>
+                        <p class="maxTemp" id="day3Max"></p>
+                        <p class="weatherDescription" id="day3Desc"></p>
+
+                    </div>
+                    <div class="icons">
+                        <p class="weather" id="day4"></p>
+                        <div class="image"></div>
+                        <p class="date" id="day4Date"></p>
+                        <p class="maxTemp" id="day4Max"></p>
+                        <p class="weatherDescription" id="day4Desc"></p>
+                    </div>
+                    <div class="icons">
+                        <p class="weather" id="day5"></p>
+                        <div class="image"></div>
+                        <p class="date" id="day5Date"></p>
+                        <p class="maxTemp" id="day5Max"></p>
+                        <p class="weatherDescription" id="day5Desc"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page2" style="display: none">
+            <h1 id = "boatName"></h1>
+            <div id="boatContainer" class="boatContainer"></div>
             <div id="priceContainer">
                 <label for="totalSeats">Selected Seats</label>
                 <br>
@@ -30,89 +94,62 @@
                 <br>
                 <input type="text" id="totalPrice" />
                 <br>
-                <button id="button3" class="button" onclick="confirmSeats()">Confirm</button>
+                <button id="page2Confirm" class="button" onclick="displayPageThree()">Confirm</button>
+                <button id="page2Back" class="button" onclick="displayPageOne()">Back</button>          
 
+                <div id=newWeatherContainer>
+                    <p class="weather" id="day"></p>
+                    <div class="image"></div>
+                    <p class="date" id="selectedDate"></p>
+                    <p class="maxTemp" id="selectedTemp"></p>
+                    <p class="weatherDescription" id="selectedDesc"></p>
+
+                </div>
             </div>
-
-            <div id="inputContainer">
-
-                <label for="bookingDate">Booking Date</label>
-                <br>
-                <input type="date" id="bookingDate" />
-                <br>
-                <br>
-                <label for="selectTime">Time</label>
-                <br>
-                <select id="timeSelect">
-                    <option value="tere">10:00</option>
-                    <option value="nui">14:00</option>
-                </select>
-                <br>
-                <br>
-                <label for="boatSelect">Boat</label>
-                <br>
-                <select id="boatSelect">
-                    <option value="tere">Tere Boat</option>
-                    <option value="nui">Nui Boat</option>
-                </select>
-                <br>
-
-                <button id="button1" class="button" onclick="displayPageTwo()">Next</button>
-                <button id="button2" class="button" onclick="backButton()">Back</button>
-
+        </div>
+        <div id="page3" style="display: none">
+            <div id="menuContainer"></div>
+            <div id="cartContainer" class="cartContainer">
+                <h1>Shopping Cart</h1>
+                <div class=topRow>
+                    <p>Food</p>
+                    <p>Price</p>
+                    <p>Quantity</p>
+                </div>
+                <div id="rowContainer"></div>
+                <div id="bottomRow">
+                    <p>Cart Price:</p>
+                    <p id="cartPrice"></p>
+                    <button id="confirmCartButton" class="button" onclick="displayPageFour()">Confirm</button>
+                    <button id="cartBack" class = "button" onclick="displayPageTwo()">Back</button>
+                </div>
             </div>
-            <div id="boatContainer" class="boatContainer"></div>
+        </div>
 
+
+        <div id="page4" style="display: none">
+            <div id="bookingDetails">
+
+                <p id="finalBookingDate"></p>
+
+                <p id="finalBookingTime"></p>
+
+
+                <p id="finalBookingBoat"></p>
+
+                <p id="finalSeats"></p>
+
+                <p id="finalBookingPrice"></p>
+
+                <p id="finalCartPrice"></p>
+
+                <p id="finalTotalPrice"></p>
+                <button class="button" onclick="refresh()">Confirm</button>
+                <button class="button" onclick="displayPageThree()">Back</button>
+                
+            </div>
 
         </div>
-        <div id="menuContainer"></div>
-        <div id="cartContainer" class="cartContainer">
-            <h1>Shopping Cart</h1>
-            <div class=topRow>
-                <p>Food</p>
-                <p>Price</p>
-                <p>Quantity</p>
-            </div>
-            <div id="rowContainer"></div>
-            <div id="bottomRow">              
-                <p>Cart Price:</p>
-                <p id="cartPrice"></p>
-                <button id="confirmCartButton" class="button" onclick="confirmBooking()">Confirm</button>
-
-            </div>
-          
-    
-
-
-        </div>
-        <div id="bookingDetails">
-
-            <p id="finalBookingDate"></p>
-
-            <p id="finalBookingTime"></p>
-
-            
-            <p id="finalBookingBoat"></p>
-
-            <p id="finalSeats"></p>
-
-            <p id="finalBookingPrice"></p>
-
-            <p id="finalCartPrice"></p>
-
-            <p id="finalTotalPrice"></p>
-            <button class = "button" onclick="refresh()">Confirm</button>
-        </div>
-   
-
-
-
     </div>
-
-    </div>
-
-
-
 </body>
-
 </html>
