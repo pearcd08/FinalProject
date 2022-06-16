@@ -169,13 +169,25 @@ function getWeather() {
 
 ///displays the weather for the next four days
 function displayWeather(data) {
+  
+  let currentTemp = Number(data.current.temp);
+  let currentDesc = data.current.weather[0].main;
+
+  document.getElementById("todayMax").innerHTML = currentTemp+"°C";
+  document.getElementById("todayDesc").innerHTML = currentDesc;
+  
+  
   for (i = 1; i < 5; i++) {
+    
+    
+    
+    
     let temp = Number(data.daily[i].temp.day);
     let desc = data.daily[i].weather[0].main;
     let timeStamp = data.daily[i].dt;
     let date = new Date(timeStamp * 1000).toDateString();
 
-    document.getElementById("day" + (i + 1) + "Max").innerHTML = temp;
+    document.getElementById("day" + (i + 1) + "Max").innerHTML = temp +"°C";
     document.getElementById("day" + (i + 1) + "Desc").innerHTML = desc;
     document.getElementById("day" + (i + 1) + "Date").innerHTML = date;
 
@@ -435,7 +447,7 @@ function addToCart() {
       let foodID = selectedFood.replace(/\D/g, "");
 
       displayCart(foodID);
-      removeFromCart();
+    
 
       ///add it to array get price and seat id
     });
@@ -456,6 +468,52 @@ function removeFromCart() {
     });
   }
 }
+let oldValue = 0;
+let allCartInputs = document.getElementsByClassName("cartQuantity")
+function quantityChanged() {  
+  for (var i =0; i < allCartInputs.length; i++){
+    let input = allCartInputs[i];
+    oldValue = input.value[i];
+    input.addEventListener('change', updateQuantity)
+  }
+ 
+  }
+
+ 
+
+  function updateQuantity(event){
+    let input = event.target;
+    let newValue = input.value;
+
+    let inputID = event.target.id;
+    let foodID = inputID.replace(/\D/g, "");
+
+    
+   
+
+    let myIndex = cartItems.indexOf(foodID);
+   
+    if(oldValue < newValue){   
+      console.log("increased");
+      cartItems.push(foodID);
+      updateCartPrice();
+      oldValue = newValue;
+    
+    }
+    else{
+      console.log("decreased");
+      cartItems.splice(myIndex, 1);
+      updateCartPrice();
+      oldValue = newValue;
+    }
+
+  
+
+  }
+
+
+
+
 
 function removeRow(cartRow, ID) {
   if (allCartButtons.length > 0) {
@@ -471,6 +529,10 @@ function removeRow(cartRow, ID) {
 
     updateCartPrice();
   }
+  else
+  {
+    console.log("cart")
+  }
 }
 
 function removeAllRows() {
@@ -483,15 +545,19 @@ function removeAllRows() {
 }
 
 let cartItems = [];
+
 function displayCart(foodID) {
   if (cartItems.indexOf(foodID) == -1) {
     newCartItem(foodID);
+    quantityChanged();
+    removeFromCart();
   } else {
     let newQuantity = document.getElementById("quantity" + foodID);
     let oldValue = newQuantity.value;
     let newValue = Number(oldValue) + 1;
     newQuantity.value = newValue;
     cartItems.push(foodID);
+
     updateCartPrice();
   }
 }
@@ -524,6 +590,7 @@ function newCartItem(foodID) {
   let quantity = document.createElement("input");
   quantity.type = "number";
   quantity.value = 1;
+  quantity.min = 1;
   quantity.id = "quantity" + foodID;
   quantity.className = "cartQuantity";
   newRow.appendChild(quantity);
@@ -539,6 +606,8 @@ function newCartItem(foodID) {
   cartItems.push(foodID);
   updateCartPrice();
 }
+
+
 
 let totalCartPrice = "";
 function updateCartPrice() {

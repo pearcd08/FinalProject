@@ -16,7 +16,10 @@
     </div>
     <div id=bookingContainer>
         <div id="page1" style="display: block">
-            <div id="title">
+            <div id="titleWeather">
+                <h1>Weather Forecast</h1>
+            </div>
+            <div id="titleInput">
                 <h1>Select Date</h1>
             </div>
             <div id="inputContainer">
@@ -43,7 +46,7 @@
                     <div class="icons">
                         <p class="weather" id="today"></p>
                         <div class="image"></div>
-                        <p class="date" id="todayDate"></p>
+                        <p class="date" id="todayDate">Current Weather</p>
                         <p class="maxTemp" id="todayMax"></p>
                         <p class="weatherDescription" id="todayDesc"></p>
                     </div>
@@ -82,7 +85,7 @@
         </div>
 
         <div id="page2" style="display: none">
-            <h1 id = "boatName"></h1>
+            <p id = "boatName"></h1>
             <div id="boatContainer" class="boatContainer"></div>
             <div id="priceContainer">
                 <label for="totalSeats">Selected Seats</label>
@@ -97,14 +100,15 @@
                 <button id="page2Confirm" class="button" onclick="displayPageThree()">Confirm</button>
                 <button id="page2Back" class="button" onclick="displayPageOne()">Back</button>          
 
-                <div id=newWeatherContainer>
-                    <p class="weather" id="day"></p>
-                    <div class="image"></div>
-                    <p class="date" id="selectedDate"></p>
-                    <p class="maxTemp" id="selectedTemp"></p>
-                    <p class="weatherDescription" id="selectedDesc"></p>
+                
+            </div>
+            <div id=newWeatherContainer>
+                <p class="weather" id="day"></p>
+                <div class="image"></div>
+                <p class="date" id="selectedDate"></p>
+                <p class="maxTemp" id="selectedTemp"></p>
+                <p class="weatherDescription" id="selectedDesc"></p>
 
-                </div>
             </div>
         </div>
         <div id="page3" style="display: none">

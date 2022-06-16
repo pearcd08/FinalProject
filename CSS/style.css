@@ -1,5 +1,5 @@
 body {
-  background-color: darkseagreen;
+  background-color: darkslategrey;
   font-family: "Trebuchet MS";
 }
 
@@ -13,27 +13,18 @@ body {
 
 #topMenu h1 {
   text-align: center;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  color: orange;
-  font-size: 48px;
+
+  color: gold;
+  font-size: 72px;
   text-shadow: 2px 2px black;
+  font-family: Brush Script MT, Brush Script Std, cursive;
 }
-
-#page1 h1 {
-  position:absolute; 
-  margin-left: 100px;
-  margin-top: 60px;
-  color:  white;
-}
-
-
 
 #bookingContainer {
   position: relative;
-  background-color: darkslategrey;
-  width: 95%;
-  height: 2800px;
+  background-color: darkcyan;
+  width: 1800px;
+  height: 800px;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
@@ -42,18 +33,49 @@ body {
  
 }
 
+
+
+#titleWeather{
+  position:absolute; 
+  margin-left: 100px;
+  margin-top: 30px;
+  color:  white;
+
+}
+#titleInput{
+  position:absolute; 
+  margin-left: 1400px;
+  margin-top: 30px;
+  color:  white;
+
+}
+
+
+
+
+
 #inputContainer {
   position: absolute;
   font-size: 20px;
   display: grid;
   grid-template-columns: repeat(1, 350px);
-
   background-color: lightsteelblue;
   border: 1px solid white;
   width: 300px;
-  height: 520px;
-  margin-left: 100px;
+  height: 500px;
+  margin-left: 1400px;
   margin-top: 100px;
+  border-radius: 7px;
+}
+
+#weatherContainer {
+  position: absolute;
+  background-color: lightsteelblue;
+  border: 1px solid white;
+  width: 1200px;
+  height: 500px;
+  margin-top: 100px;
+  margin-left: 100px;
   border-radius: 7px;
 }
 
@@ -85,34 +107,33 @@ select {
   color: black;
   font-size: 20px;
 }
-#weatherContainer {
-  position: absolute;
-  background-color: lightsteelblue;
-  border: 1px solid white;
-  width: 1000px;
-  height: 300px;
-  margin-top: 100px;
-  margin-left: 500px;
-  border-radius: 7px;
-}
 
-#weatherContainer .icons {
-  margin-left: 15px;
-  margin-right: 15px;
-  width: 300px;
-  height: 200px;
-  border: 3px solid black;
-  background-color: white;
-}
+
+
 
 #weatherContainer p {
   margin-left: 30px;
   text-align: left;
   color: black;
   font-size: 24px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
 }
+
+#iconsContainer {
+  display: flex;
+  
+}
+
+.icons {
+  width: 300px;
+  height: 380px;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 50px; 
+  border-radius: 7px;
+  background-color: white;
+}
+
+
 
 
 #boatName{
@@ -124,11 +145,15 @@ position:absolute;
 }
 #priceContainer {
   position: absolute;
-  background-color: white;
+  font-size: 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 350px);
+  background-color: lightsteelblue;
+  border: 1px solid white;
   width: 300px;
-  height: 250px;
-  margin-top:100px;
-  margin-left: 1200px;
+  height: 500px;
+  margin-left: 1400px;
+  margin-top: 100px;
   border-radius: 7px;
 }
 #priceContainer label {
@@ -156,20 +181,6 @@ position:absolute;
   border-radius: 7px;
 }
 
-#iconsContainer {
-  display: flex;
-}
-
-.icons {
-  width: 150px;
-  height: 150px;
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-top: 50px;
-
-  background-color: aqua;
-}
-
 
 
 #menuContainer {
@@ -177,16 +188,18 @@ position:absolute;
   display: grid;
   grid-template-columns: repeat(3, 350px);
   margin-left: 100px;
+
 }
 
 #menuContainer .food {
   margin-left: 15px;
   margin-right: 15px;
-  margin-top: 100px;
+  margin-top: 30px;
   width: 300px;
   height: 450px;
-  border: 3px solid black;
-  background-color: lightsteelblue;
+  border: 1px solid black;
+  background-color: white;
+
 }
 
 .food h1{
@@ -198,12 +211,17 @@ position:absolute;
 
 #cartContainer {
   position: absolute;
-  background-color: lightsteelblue;
-  width: 525px;
-  height: 100px;
+  background-color: white;
+  width: 523px;
+  height: 70px;
   margin-top: 100px;
-  left: 1200px;
-  border: 1px solid black;
+  margin-left: 1200px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+ 
 }
 
 #cartContainer h1{
@@ -225,12 +243,15 @@ position:absolute;
 .cartRow {
   display: grid;
   grid-template-columns: repeat(4, 140px);
-  border-bottom: 1px solid black;
-  background-color: white;
 
+  background-color: white;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   padding-left: 25px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 20px;
+  
 }
 .cartRow input {
   width: 60px;
@@ -243,11 +264,10 @@ position:absolute;
 
 .topRow {
   display: grid;
-  grid-template-columns: repeat(4, 140px);
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  grid-template-columns: repeat(4, 140px); 
+  border: 1px solid black;
   color: white;
-  background-color: forestgreen;
+  background-color: darkslategrey;
 
   padding-left: 25px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -258,12 +278,18 @@ position:absolute;
   display: grid;
   grid-template-columns: repeat(3, 140px);
   border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   color: white;
-  background-color: forestgreen;
+  background-color: darkslategrey;
 
   padding-left: 25px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 20px;
+
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+
 }
 
 .cartRow button {
