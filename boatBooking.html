@@ -15,11 +15,13 @@
         <h1>Wakatipu Boat Adventure</h1>
     </div>
     <div id=bookingContainer>
+        <div id="bookingBackground"></div>
         <div id="page1" style="display: block">
-            <div id="titleWeather">
+            
+            <div class="title1">
                 <h1>Weather Forecast</h1>
             </div>
-            <div id="titleInput">
+            <div class="title2">
                 <h1>Select Date</h1>
             </div>
             <div id="inputContainer">
@@ -38,50 +40,52 @@
                 <label for="peopleSelect">Number of People</label>
                 <input type="number" id="peopleSelect" min="1" max="5">
                 </input>
-                <button id="button1" class="button" onclick="displayPageTwo()">Next</button>
+                <button id="button1" class="button" onclick="displayPageTwo()">Confirm</button>
             </div>
-            <div id="weatherContainer">
+            <div id="weatherContainer" class = "weatherContainer">
                 <div id="iconsContainer">
 
                     <div class="icons">
                         <p class="weather" id="today"></p>
-                        <div class="image"></div>
+                       
                         <p class="date" id="todayDate">Current Weather</p>
+                        <img class="image" id="todayImg">
                         <p class="maxTemp" id="todayMax"></p>
                         <p class="weatherDescription" id="todayDesc"></p>
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day2"></p>
-                        <div class="image"></div>
+                        <p class="weather" id="day2"></p>                        
                         <p class="date" id="day2Date"></p>
+                        <img class="image" id="day2Img" src="">
                         <p class="maxTemp" id="day2Max"></p>
                         <p class="weatherDescription" id="day2Desc"></p>
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day3"></p>
-                        <div class="image"></div>
+                        <p class="weather" id="day3"></p>                        
                         <p class="date" id="day3Date"></p>
+                        <img class="image" id="day3Img" src="">                        
                         <p class="maxTemp" id="day3Max"></p>
                         <p class="weatherDescription" id="day3Desc"></p>
 
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day4"></p>
-                        <div class="image"></div>
+                        <p class="weather" id="day4"></p>                       
                         <p class="date" id="day4Date"></p>
+                        <img class="image" id="day4Img" src="">  
                         <p class="maxTemp" id="day4Max"></p>
                         <p class="weatherDescription" id="day4Desc"></p>
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day5"></p>
-                        <div class="image"></div>
+                        <p class="weather" id="day5"></p>                   
                         <p class="date" id="day5Date"></p>
+                        <img class="image" id="day5Img" src="">  
                         <p class="maxTemp" id="day5Max"></p>
                         <p class="weatherDescription" id="day5Desc"></p>
-
+                        
                     </div>
                 </div>
             </div>
+           
         </div>
 
         <div id="page2" style="display: none">
@@ -102,7 +106,7 @@
 
                 
             </div>
-            <div id=newWeatherContainer>
+            <div id=newWeatherContainer class = "weatherContainer">
                 <p class="weather" id="day"></p>
                 <div class="image"></div>
                 <p class="date" id="selectedDate"></p>
@@ -112,6 +116,12 @@
             </div>
         </div>
         <div id="page3" style="display: none">
+            <div class="title1">
+                <h1>Select Food</h1>
+            </div>
+            <div class="title2">
+                <h1>Cart</h1>
+            </div>
             <div id="menuContainer"></div>
             <div id="cartContainer" class="cartContainer">
                 <h1>Shopping Cart</h1>
@@ -125,7 +135,7 @@
                     <p>Cart Price:</p>
                     <p id="cartPrice"></p>
                     <button id="confirmCartButton" class="button" onclick="displayPageFour()">Confirm</button>
-                    <button id="cartBack" class = "button" onclick="displayPageTwo()">Back</button>
+                    <button id="cartBack" class = "button" onclick="cartBack()">Back</button>
                 </div>
             </div>
         </div>

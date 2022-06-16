@@ -1,6 +1,7 @@
 body {
   background-color: darkslategrey;
   font-family: "Trebuchet MS";
+  background-image: url("/images/lake.jpg");
 }
 
 
@@ -22,30 +23,39 @@ body {
 
 #bookingContainer {
   position: relative;
-  background-color: darkcyan;
   width: 1800px;
-  height: 800px;
+  height: 1200px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: darkslategray;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   border: none;
-  border-radius: 7px;
+  border-radius: 7px;  
+
+
+
  
 }
 
 
 
-#titleWeather{
+
+.title1{
   position:absolute; 
   margin-left: 100px;
-  margin-top: 30px;
+  margin-top: 125px;
   color:  white;
 
+
 }
-#titleInput{
+.title2{
   position:absolute; 
   margin-left: 1400px;
-  margin-top: 30px;
+  margin-top: 125px;
   color:  white;
 
 }
@@ -59,34 +69,27 @@ body {
   font-size: 20px;
   display: grid;
   grid-template-columns: repeat(1, 350px);
-  background-color: lightsteelblue;
+  background-color: darkcyan;
   border: 1px solid white;
   width: 300px;
   height: 500px;
   margin-left: 1400px;
-  margin-top: 100px;
+  margin-top: 200px;
   border-radius: 7px;
 }
 
-#weatherContainer {
-  position: absolute;
-  background-color: lightsteelblue;
-  border: 1px solid white;
-  width: 1200px;
-  height: 500px;
-  margin-top: 100px;
-  margin-left: 100px;
-  border-radius: 7px;
-}
+
 
 #inputContainer label {
   margin-left: 40px;
-  margin-top: 30px;
+  color:white;
+  
+ 
 }
 
 #inputContainer button {
-  margin-left: 150px;
-  margin-top: 30px;
+  margin-left: 40px;
+  
 }
 
 input {
@@ -110,27 +113,53 @@ select {
 
 
 
+.weatherContainer {
+  position: absolute;
+ 
+  width: 1200px;
+  height: 500px;
+  margin-top: 200px;
+  margin-left: 100px;
 
+  border-radius: 7px;
+}
 #weatherContainer p {
-  margin-left: 30px;
-  text-align: left;
-  color: black;
+  
+  text-align: center;
+  color: white;
   font-size: 24px;
 }
 
 #iconsContainer {
   display: flex;
+
   
 }
 
 .icons {
   width: 300px;
-  height: 380px;
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-top: 50px; 
+  height: 400px;
+  margin-right: 30px; 
   border-radius: 7px;
-  background-color: white;
+  background-color: darkcyan;
+  color: white;
+  border: 1px solid white;
+}
+
+#iconsContainer .date{
+  color: white;
+  font-size: 20px;
+
+
+}
+
+.icons .image{
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: auto;
+  
+  
 }
 
 
@@ -148,7 +177,7 @@ position:absolute;
   font-size: 20px;
   display: grid;
   grid-template-columns: repeat(1, 350px);
-  background-color: lightsteelblue;
+  background-color: darkcyan;
   border: 1px solid white;
   width: 300px;
   height: 500px;
@@ -159,7 +188,7 @@ position:absolute;
 #priceContainer label {
   margin-left: 30px;
   text-align: left;
-  color: black;
+  color: white;
   font-size: 24px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -188,6 +217,7 @@ position:absolute;
   display: grid;
   grid-template-columns: repeat(3, 350px);
   margin-left: 100px;
+  margin-top: 70px;
 
 }
 
@@ -199,6 +229,7 @@ position:absolute;
   height: 450px;
   border: 1px solid black;
   background-color: white;
+  border-radius: 7px;
 
 }
 
@@ -267,7 +298,7 @@ position:absolute;
   grid-template-columns: repeat(4, 140px); 
   border: 1px solid black;
   color: white;
-  background-color: darkslategrey;
+  background-color: darkcyan;
 
   padding-left: 25px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -281,7 +312,7 @@ position:absolute;
   border-left: 1px solid black;
   border-right: 1px solid black;
   color: white;
-  background-color: darkslategrey;
+  background-color: darkcyan;
 
   padding-left: 25px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -351,10 +382,11 @@ button {
   height: 30px;
   font-size: 16px;
   font-family: "Trebuchet MS";
-  color: white;
+  font-style: oblique;
+  color: black;  
   border: none;
   border-radius: 7px;
-  background-color: forestgreen;
+  background-color: gold;
 }
 #button1 {
   display: inline-block;

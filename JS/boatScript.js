@@ -79,7 +79,6 @@ function initiate() {
   addToCart();
   restrictDate();
   getWeather();
-
 }
 
 function displayPageOne() {
@@ -88,6 +87,11 @@ function displayPageOne() {
   document.getElementById("page2").style.display = "none";
   document.getElementById("page3").style.display = "none";
   document.getElementById("page4").style.display = "none";
+  selectedSeats = [];
+  let textPrice = document.getElementById("totalPrice");
+  textPrice.value = "";
+  let textSeats = document.getElementById("totalSeats");
+  textSeats.value = "";
 }
 
 function displayPageTwo() {
@@ -99,6 +103,8 @@ function displayPageTwo() {
 
   let dateSelected = document.getElementById("bookingDate");
   let dateText = dateSelected.value;
+  
+  console.log(dateText);
 
   let peopleSelected = document.getElementById("peopleSelect");
   let peopleText = peopleSelected.value;
@@ -131,7 +137,6 @@ function displayPageTwo() {
 }
 
 function displayPageThree() {
-
   console.log(seatsLeft);
   if (seatsLeft == 0) {
     document.getElementById("page1").style.display = "none";
@@ -151,6 +156,13 @@ function displayPageFour() {
   document.getElementById("page4").style.display = "block";
 }
 
+function cartBack() {
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "block";
+  document.getElementById("page3").style.display = "none";
+  document.getElementById("page4").style.display = "none";
+}
+
 ///functions are in order of use
 
 ///PAGE ONE
@@ -158,7 +170,7 @@ function displayPageFour() {
 ///gets the weather data from the API
 function getWeather() {
   let url =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=-45.079786621791584&lon=168.53875588689522&exclude=minutely,hourly&units=metric&appid=6ca2ddadc17f042e6db29ad8352362de";
+    "https://api.openweathermap.org/data/2.5/onecall?lat=-45.079786621791584&lon=168.53875588689522&exclude=minutely,hourly&units=metric&appid=db9c66f21a946c630c2ab6d132e4a05c";
 
   fetch(url)
     .then((response) => response.json())
@@ -169,52 +181,82 @@ function getWeather() {
 
 ///displays the weather for the next four days
 function displayWeather(data) {
-  
   let currentTemp = Number(data.current.temp);
-  let currentDesc = data.current.weather[0].main;
+  let currentDesc = data.current.weather[0].description;
+  let currentWords = currentDesc.split(" ");
 
-  document.getElementById("todayMax").innerHTML = currentTemp+"°C";
-  document.getElementById("todayDesc").innerHTML = currentDesc;
-  
-  
-  for (i = 1; i < 5; i++) {
-    
-    
-    
-    
-    let temp = Number(data.daily[i].temp.day);
-    let desc = data.daily[i].weather[0].main;
-    let timeStamp = data.daily[i].dt;
-    let date = new Date(timeStamp * 1000).toDateString();
-
-    document.getElementById("day" + (i + 1) + "Max").innerHTML = temp +"°C";
-    document.getElementById("day" + (i + 1) + "Desc").innerHTML = desc;
-    document.getElementById("day" + (i + 1) + "Date").innerHTML = date;
-
-    weatherArray.push(new Weather(date, temp, desc));
+  for (let i = 0; i < currentWords.length; i++) {
+    currentWords[i] = currentWords[i][0].toUpperCase() + currentWords[i].substr(1);
   }
+  let uppercaseCurrentDesc = currentWords.join(" ");
+  let currentIcon = data.current.weather[0].icon;
+
+  document.getElementById("todayMax").innerHTML = currentTemp + "°C";
+  document.getElementById("todayDesc").innerHTML = uppercaseCurrentDesc;
+  document.getElementById("todayImg").src =
+    "http://openweathermap.org/img/wn/" + currentIcon + "@4x.png";
+
+  for (i = 1; i < 5; i++) {
+    let temp = Number(data.daily[i].temp.day);
+    let desc = data.daily[i].weather[0].description;    
+    let descWords = desc.split(" ");
+
+    for (let i = 0; i < descWords.length; i++) {
+      descWords[i] = descWords[i][0].toUpperCase() + descWords[i].substr(1);
+    }
+    let uppercaseDesc = descWords.join(" ");
+
+    let timeStamp = data.daily[i].dt;
+    let weatherDate = new Date(timeStamp * 1000).toISOString();
+    let formatDate = weatherDate.split('T')[0]
+    
+    let icon = data.daily[i].weather[0].icon;
+    let iconURL = "http://openweathermap.org/img/wn/" + icon + "@4x.png";
+
+    document.getElementById("day" + (i + 1) + "Max").innerHTML = temp + "°C";
+    document.getElementById("day" + (i + 1) + "Desc").innerHTML = uppercaseDesc;
+    document.getElementById("day" + (i + 1) + "Date").innerHTML = formatDate;
+    document.getElementById("day" + (i + 1) + "Img").src = iconURL;
+
+    weatherArray.push(new Weather(formatDate, temp, uppercaseDesc));
+  }
+  console.log(weatherArray);
 }
 
 ///restricts the date from today to next 4 days
 function restrictDate() {
-  var today = new Date().toISOString().split("T")[0];
-  var nextWeekDate = new Date(new Date().getTime() + 4 * 24 * 60 * 60 * 1000)
+ 
+  var timezoneOffset = (new Date()).getTimezoneOffset() * 60000; 
+  var today = (new Date(Date.now() - timezoneOffset)).toISOString().split("T")[0];
+
+  var nextWeekDate = new Date((Date.now() - timezoneOffset) + 4 * 24 * 60 * 60 * 1000)
     .toISOString()
     .split("T")[0];
   var bookingDate = document.getElementById("bookingDate");
   bookingDate.setAttribute("min", today);
   bookingDate.setAttribute("max", nextWeekDate);
+console.log(today);
 }
 
 /// check to see if conditions are ok to sail
 function checkWeather(dateText) {
-  for (i = 0; i < weatherArray.length; i++) {
-    if ((weatherArray[i].date = dateText)) {
-      let weather = weatherArray[i].desc;
 
-      if (weatherArray[i].temp < 2 || weather === "Rain") {
+
+ 
+  for (i = 0; i < weatherArray.length; i++) {
+    let checkDate = weatherArray[i].date;
+    if ((checkDate == dateText)) {
+      let weather = weatherArray[i].desc;
+      console.log("dateText"+dateText);
+      
+
+      if (weatherArray[i].temp < 2 || weather.includes("Overast")) {
+        console.log(weatherArray[i].date)
+        console.log(weather);
         return true;
       } else {
+        console.log(weatherArray[i].date)
+        console.log(weather);
         return false;
       }
     }
@@ -347,9 +389,9 @@ function markAsSelected() {
   }
 }
 
-function clearSelected(){
+function clearSelected() {
   selectedSeats = [];
- getPrice();
+  getPrice();
 }
 
 let seatsLeft = 0;
@@ -447,7 +489,6 @@ function addToCart() {
       let foodID = selectedFood.replace(/\D/g, "");
 
       displayCart(foodID);
-    
 
       ///add it to array get price and seat id
     });
@@ -469,51 +510,36 @@ function removeFromCart() {
   }
 }
 let oldValue = 0;
-let allCartInputs = document.getElementsByClassName("cartQuantity")
-function quantityChanged() {  
-  for (var i =0; i < allCartInputs.length; i++){
+let allCartInputs = document.getElementsByClassName("cartQuantity");
+function quantityChanged() {
+  for (var i = 0; i < allCartInputs.length; i++) {
     let input = allCartInputs[i];
     oldValue = input.value[i];
-    input.addEventListener('change', updateQuantity)
+    input.addEventListener("change", updateQuantity);
   }
- 
+}
+
+function updateQuantity(event) {
+  let input = event.target;
+  let newValue = input.value;
+
+  let inputID = event.target.id;
+  let foodID = inputID.replace(/\D/g, "");
+
+  let myIndex = cartItems.indexOf(foodID);
+
+  if (oldValue < newValue) {
+    console.log("increased");
+    cartItems.push(foodID);
+    updateCartPrice();
+    oldValue = newValue;
+  } else {
+    console.log("decreased");
+    cartItems.splice(myIndex, 1);
+    updateCartPrice();
+    oldValue = newValue;
   }
-
- 
-
-  function updateQuantity(event){
-    let input = event.target;
-    let newValue = input.value;
-
-    let inputID = event.target.id;
-    let foodID = inputID.replace(/\D/g, "");
-
-    
-   
-
-    let myIndex = cartItems.indexOf(foodID);
-   
-    if(oldValue < newValue){   
-      console.log("increased");
-      cartItems.push(foodID);
-      updateCartPrice();
-      oldValue = newValue;
-    
-    }
-    else{
-      console.log("decreased");
-      cartItems.splice(myIndex, 1);
-      updateCartPrice();
-      oldValue = newValue;
-    }
-
-  
-
-  }
-
-
-
-
+}
 
 function removeRow(cartRow, ID) {
   if (allCartButtons.length > 0) {
@@ -528,10 +554,8 @@ function removeRow(cartRow, ID) {
     cartItems = newArray;
 
     updateCartPrice();
-  }
-  else
-  {
-    console.log("cart")
+  } else {
+    console.log("cart");
   }
 }
 
@@ -606,8 +630,6 @@ function newCartItem(foodID) {
   cartItems.push(foodID);
   updateCartPrice();
 }
-
-
 
 let totalCartPrice = "";
 function updateCartPrice() {
