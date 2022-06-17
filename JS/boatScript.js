@@ -21,10 +21,11 @@ class Seat {
 }
 
 class Food {
-  constructor(foodName, foodPrice, foodInfo) {
+  constructor(foodName, foodPrice, foodInfo, foodID) {
     this.foodName = foodName;
     this.foodPrice = foodPrice;
     this.foodInfo = foodInfo;
+    this.foodID = foodID;
   }
 }
 
@@ -46,31 +47,11 @@ let foodArray = [];
 let weatherArray = [];
 let selectedSeats = [];
 
-
 ///different variables for the final confirmation
 let confirmedSeats = [];
 let bookedTime = "";
 let bookedDate = "";
 let bookedBoat = "";
-
-function confirmBooking() {
-  document.getElementById("finalBookingDate").innerHTML =
-    "Booking Date: " + selectedDate;
-  document.getElementById("finalBookingTime").innerHTML =
-    "Time of Departure: " + selectedTime;
-  document.getElementById("finalBookingBoat").innerHTML =
-    "Boat Name: " + selectedBoat;
-
-  document.getElementById("finalSeats").innerHTML =
-    "Booked Seats: " + selectedSeats;
-  document.getElementById("finalBookingPrice").innerHTML =
-    "Seat Price: " + finalSeatPrice;
-  document.getElementById("finalCartPrice").innerHTML =
-    "Menu Price: " + totalCartPrice;
-  let finalPrice = Number(finalSeatPrice) + Number(totalCartPrice);
-  document.getElementById("finalTotalPrice").innerHTML =
-    "Total Booking Price: $" + finalPrice;
-}
 
 ///all the seats elements
 let allSeats = document.getElementsByClassName("seat");
@@ -85,17 +66,13 @@ function initiate() {
 
 function displayPageOne() {
   removeBoats();
-  selectedSeats= [];
+  selectedSeats = [];
   removeAllBookingRows();
   document.getElementById("page1").style.display = "block";
   document.getElementById("page2").style.display = "none";
   document.getElementById("page3").style.display = "none";
   document.getElementById("page4").style.display = "none";
   selectedSeats = [];
-  let textPrice = document.getElementById("totalPrice");
-  textPrice.value = "";
-  let textSeats = document.getElementById("totalSeats");
-  textSeats.value = "";
 }
 
 function displayPageTwo() {
@@ -108,23 +85,17 @@ function displayPageTwo() {
   let dateSelected = document.getElementById("bookingDate");
   let dateText = dateSelected.value;
 
- 
   selectedTime = timeText;
   let peopleSelected = document.getElementById("peopleSelect");
   let peopleText = peopleSelected.value;
   console.log(peopleText);
-  if (dateText == ""){
+  if (dateText == "") {
     alert("select a date");
-  }
-
-  else if (peopleText== ""){
+  } else if (peopleText == "") {
     alert("select number of people");
-  }
-
-  else if (checkWeather(dateText) === false) {
+  } else if (checkWeather(dateText) === false) {
     alert("Conditions unsuitable for booking date");
-  }
-  else {
+  } else {
     selectedTime = timeText;
     selectedBoat = boatText;
     selectedTime = timeText;
@@ -138,9 +109,7 @@ function displayPageTwo() {
       document.getElementById("boatName").innerHTML = "Nui Boat";
     }
     randomBooking();
-    markAsBooked();
     selectSeat();
-   
 
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "block";
@@ -265,7 +234,7 @@ function checkTime(time) {
   var currentTime = format2.substring(0, 4);
   var bookingTime = time.replace(":", "");
 
-  if (bookingTime < currentTime) {    
+  if (bookingTime < currentTime) {
     return false;
   } else {
     return true;
@@ -273,12 +242,11 @@ function checkTime(time) {
 }
 /// check to see if conditions are ok to sail
 function checkWeather(dateText) {
-  if (currentDate == dateText) {  
+  if (currentDate == dateText) {
     if (checkTime(bookedTime) === false) {
       alert("Boat has already departed, pick another time or date");
       return false;
-    }
-    else if(checkTime(bookedTime) === true) {
+    } else if (checkTime(bookedTime) === true) {
       console.log("today, weather doesn't matter");
       return true;
     }
@@ -351,6 +319,12 @@ function loadTere() {
       let seatNumber = Number([i]) + 1;
       newSeatID = seatNumber + alphabetArray[j];
       newSeat.id = count;
+      let p1 = document.createElement("p");
+      let seatText = document.createTextNode("$" + price);
+      p1.className = "seatPrice";
+
+      p1.appendChild(seatText);
+      newSeat.appendChild(p1);
 
       seatsArray.push(new Seat(boatName, count, price, false, newSeatID));
       document.getElementById(rowID).appendChild(newSeat);
@@ -379,16 +353,26 @@ function loadNui() {
     seats = rows[i].getElementsByTagName("seats")[0].childNodes[0].nodeValue;
     for (j = 0; j < seats; j++) {
       let middle = seats / 2 + 1;
+      let p1 = document.createElement("p");
       if (j == middle) {
         newSeat.style.marginLeft = "50px";
+        p1.style.marginLeft = "-100px";
       }
+
+      p1.style.marginLeft = "-50px";
+
       newSeat = document.createElement("div");
       newSeat.classList.add("seat");
       let seatNumber = Number([i]) + 1;
       newSeatID = seatNumber + alphabetArray[j];
       newSeat.id = count;
+
+      let seatText = document.createTextNode("$" + price);
+      p1.className = "seatPrice";
+      p1.appendChild(seatText);
+      newSeat.appendChild(p1);
       boatName = "nui";
-      seatsArray.push(new Seat(boatName, count, price, false,newSeatID));
+      seatsArray.push(new Seat(boatName, count, price, false, newSeatID));
       document.getElementById(rowID).appendChild(newSeat);
       count++;
     }
@@ -408,7 +392,11 @@ function randomBooking() {
 ///Any seats in the confirmed seats array will be marked as booked
 function markAsBooked() {
   let newSeats = [];
-  if (bookedTime == selectedTime && bookedDate == date && bookedBoat == boat) {
+  if (
+    bookedTime == selectedTime &&
+    bookedDate == selectedDate &&
+    bookedBoat == selectedBoat
+  ) {
     for (i = 0; i < allSeats.length; i++) {
       newSeats.push([i]);
       for (j = 0; j < confirmedSeats.length; j++) {
@@ -439,7 +427,6 @@ function clearSelected() {
   getPrice();
 }
 
-
 ///Makes every seat an event listener and clicking on a seat will toggle selected
 function selectSeat() {
   let seatCount = 0;
@@ -463,7 +450,6 @@ function selectSeat() {
           newSeatBookingRow(selectedSeat);
           seatCount++;
           seatsLeft = Number(numPeople) - Number(seatCount);
-          
         } else {
           alert("You have chosen seats for each person");
         }
@@ -479,7 +465,7 @@ function selectSeat() {
         }
         removeBookingRow(seatID2);
         getPrice();
-        
+
         seatCount--;
         seatsLeft = Number(numPeople) - Number(seatCount);
       }
@@ -487,15 +473,13 @@ function selectSeat() {
   }
 }
 
-
 let allBookingRows = document.getElementsByClassName("bookingRow");
-function removeBookingRow(seat){
-  if (allBookingRows.length > 0){
-    let bookingRowID = "bookingRow"+seat;
+function removeBookingRow(seat) {
+  if (allBookingRows.length > 0) {
+    let bookingRowID = "bookingRow" + seat;
     console.log(bookingRowID);
-    let bookingRow = document.getElementById(bookingRowID)
-    bookingRow.parentNode.removeChild(bookingRow); 
-
+    let bookingRow = document.getElementById(bookingRowID);
+    bookingRow.parentNode.removeChild(bookingRow);
   }
 }
 
@@ -508,40 +492,30 @@ function removeAllBookingRows() {
   });
 }
 
+function newSeatBookingRow(seat) {
+  for (let i = 0; i < seatsArray.length; i++)
+    if (seat == seatsArray[i].seatID) {
+      let seatName = seatsArray[i].seatName;
+      let seatPrice = seatsArray[i].price;
+      console.log(seatName + "" + seatPrice);
 
-
-function newSeatBookingRow(seat){
-   
-  for(let i = 0; i < seatsArray.length; i++)
-  if(seat == seatsArray[i].seatID)
-  {
-    let seatName = seatsArray[i].seatName;
-    let seatPrice = seatsArray[i].price;
-    console.log(seatName+""+seatPrice);
-
-    let container = document.getElementById("bookingRowContainer");
-    let newRow = document.createElement("div");
-    newRow.className = "bookingRow";
-    newRow.id = "bookingRow" + seatsArray[i].seatID;
-    container.appendChild(newRow);
-    let p1 = document.createElement("p");
-    let bookingRowText = document.createTextNode(seatName);
-    p1.classname = "seatName";
-    p1.appendChild(bookingRowText);
-    newRow.appendChild(p1);
-    let p2 = document.createElement("p");
-    let priceText = document.createTextNode("$" + seatPrice);
-    p2.className = "seatPrice";
-    p2.appendChild(priceText);
-    newRow.appendChild(p2);
-  }
+      let container = document.getElementById("bookingRowContainer");
+      let newRow = document.createElement("div");
+      newRow.className = "bookingRow";
+      newRow.id = "bookingRow" + seatsArray[i].seatID;
+      container.appendChild(newRow);
+      let p1 = document.createElement("p");
+      let bookingRowText = document.createTextNode(seatName);
+      p1.classname = "seatName";
+      p1.appendChild(bookingRowText);
+      newRow.appendChild(p1);
+      let p2 = document.createElement("p");
+      let priceText = document.createTextNode("$" + seatPrice);
+      p2.className = "seatPrice2";
+      p2.appendChild(priceText);
+      newRow.appendChild(p2);
+    }
 }
-
-
-
-
-
-
 
 ///gets the price of each selected seat and displays in the priceContainer
 let finalSeatPrice = "";
@@ -553,12 +527,11 @@ function getPrice() {
     let seatPrice = seatsArray[value].price;
     totalPrice = Number(totalPrice) + Number(seatPrice);
   }
-  document.getElementById("totalBookingPrice").innerHTML = "$"+totalPrice+".00";
+  document.getElementById("totalBookingPrice").innerHTML =
+    "$" + totalPrice + ".00";
   finalSeatPrice = totalPrice;
 
- 
-  
-console.log("totalP"+totalPrice);
+  console.log("totalP" + totalPrice);
 }
 
 ///removes the boat ui on back button
@@ -696,6 +669,7 @@ function displayCart(foodID) {
 ///gets the letiables
 
 function newCartItem(foodID) {
+  console.log(foodArray);
   let container = document.getElementById("rowContainer");
   let value = foodID;
   let foodName = foodArray[value].foodName;
@@ -751,17 +725,18 @@ function updateCartPrice() {
 }
 
 function refresh() {
-  document.getElementById("topMenu").scrollIntoView();
-  foodArray = [];
+ 
+  confirmSeats();
+  displayPageOne(); 
   seatsArray = [];
   selectedSeats = [];
   cartItems = [];
-  let textPrice = document.getElementById("totalPrice");
-  textPrice.value = "";
-  let textSeats = document.getElementById("totalSeats");
-  textSeats.value = "";
+  allBookingRows = [];
+  allCartButtons = [];
+  allCartInputs = [];
+  allFoodButtons = [];
+  removeAllBookingRows();
   removeAllRows();
-  removeBoats();
 }
 
 function loadMenu() {
@@ -814,7 +789,7 @@ function loadMenu() {
     foodButton.appendChild(buttonText);
     foodContainer.appendChild(foodButton);
     //create add to cart button
-    foodArray.push(new Food(foodName, price, info));
+    foodArray.push(new Food(foodName, price, info, i));
   }
 }
 
@@ -830,10 +805,105 @@ function confirmSeats() {
     }
   }
   document.getElementById("menuContainer").scrollIntoView();
-  bookedTime = time;
-  bookedDate = new Date(date).toDateString();
-  bookedBoat = boat;
+  bookedTime = selectedTime;
+  bookedDate = selectedDate;
+  bookedBoat = selectedBoat;
   console.log("Confirmed Seats:" + confirmedSeats);
   console.log(bookedDate);
   console.log(bookedBoat);
 }
+
+function confirmBooking() {
+  document.getElementById("finalBookingDate").innerHTML =
+    "Booking Date: " + selectedDate;
+  document.getElementById("finalBookingTime").innerHTML =
+    "Time of Departure: " + selectedTime;
+  document.getElementById("finalBookingBoat").innerHTML =
+    "Boat Name: " + selectedBoat;
+  document.getElementById("finalBookingPeople").innerHTML =
+    "Number of People: " + selectedPeople;
+  for (let i = 0; i < seatsArray.length; i++) {
+    for (let j = 0; j < selectedSeats.length; j++) {
+      if (seatsArray[i].seatID == selectedSeats[j]) {
+        let seatName = seatsArray[i].seatName;
+        let seatPrice = seatsArray[i].price;
+        console.log("booking" + seatName + "" + seatPrice);        
+        let rowToAttach = document.getElementById("finalSeats");
+        let p1 = document.createElement("p");
+        let bookingText = document.createTextNode(seatName);
+        p1.appendChild(bookingText);    
+        rowToAttach.appendChild(p1);
+        let p2 = document.createElement("p");
+        let bookingPrice = document.createTextNode("$"+seatPrice+".00");
+        p2.appendChild(bookingPrice);    
+        rowToAttach.appendChild(p2);
+      }
+    }
+  }
+
+  console.log(foodArray);
+  console.log(cartItems);
+
+  
+  for (let k = 0; k < foodArray.length; k++) {
+
+    for (let l = 0; l < cartItems.length; l++) {
+
+      if (foodArray[k].foodID == cartItems[l]) {
+        console.log("YYYYYYYY");
+        let fName =foodArray[k].foodName;
+        let fPrice = foodArray[k].foodPrice;
+        let rowToAttach = document.getElementById("finalCart");
+        let p1 = document.createElement("p");
+        p1.className = "finalFoodName";
+        let foodText = document.createTextNode(fName);
+        p1.appendChild(foodText);    
+        rowToAttach.appendChild(p1);
+        let p2 = document.createElement("p");
+         p2.className = "finalFoodPrice";
+        let foodPrice2 = document.createTextNode("$"+fPrice+".00");
+        p2.appendChild(foodPrice2);    
+        rowToAttach.appendChild(p2);
+
+      }}}
+  
+
+
+
+  document.getElementById("finalBookingPrice").innerHTML =
+    "Total Seat Price: $" + finalSeatPrice+".00";
+  document.getElementById("finalCartPrice").innerHTML =
+    "Total Menu Price: $" + totalCartPrice+".00";
+  let finalPrice = Number(finalSeatPrice) + Number(totalCartPrice);
+  document.getElementById("finalTotalPrice").innerHTML =
+    "Total Booking Price: $" + finalPrice+".00";
+ 
+}
+
+
+
+
+function deleteReceipt(){
+  document.getElementById("finalBookingPrice").innerHTML ="";
+  document.getElementById("finalCartPrice").innerHTML ="";
+  document.getElementById("finalTotalPrice").innerHTML ="";
+  document.getElementById("finalSeats").innerHTML = "";
+  document.getElementById("finalCart").innerHTML = "";
+
+}
+
+function refresh() {
+ deleteReceipt();
+  confirmSeats();
+  displayPageOne(); 
+  seatsArray = [];
+  selectedSeats = [];
+  cartItems = [];
+  allBookingRows = [];
+  allCartButtons = [];
+  allCartInputs = [];
+  allFoodButtons = [];
+  removeAllBookingRows();
+  removeAllRows();
+}
+

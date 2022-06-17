@@ -90,9 +90,9 @@
 
         <div id="page2" style="display: none">
             <h1 id="boatName">
-                </h1>
+            </h1>
             <div id="boatContainer" class="boatContainer"></div>
-           
+
             <div id="priceContainer">
                 <h1>Selected Seats</h1>
                 <div class="topBookingRow">
@@ -107,26 +107,26 @@
 
 
                     <button id="page2Confirm" class="button" onclick="displayPageThree()">Confirm</button>
-                   
+
 
                 </div>
-         
- 
+
+
 
 
 
             </div>
-            <button id="page2Back" class="backButton" onclick="displayPageOne()">Back</button>   
+            <button id="page2Back" class="backButton" onclick="displayPageOne()">Back</button>
 
 
-        
-            
-           
+
+
+
         </div>
         <div id="page3" style="display: none">
-  
-                <h1 id = "titleFood">Select Food</h1>
-      
+
+            <h1 id="titleFood">Select Food</h1>
+
             <div class="title2">
                 <h1>Cart</h1>
             </div>
@@ -143,7 +143,7 @@
                     <p>Cart Price:</p>
                     <p id="cartPrice"></p>
                     <button id="confirmCartButton" class="button" onclick="displayPageFour()">Confirm</button>
-                    
+
                 </div>
             </div>
             <button id="cartBack" class="backButton" onclick="cartBack()">Back</button>
@@ -152,15 +152,28 @@
 
         <div id="page4" style="display: none">
             <div id="bookingDetails">
+                <div id="bookingRow1">
+                    <p id="finalBookingDate"></p>
+                    <p id="finalBookingTime"></p>
+                </div>
+                <div id="bookingRow2">
+                    <p id="finalBookingBoat"></p>
+                    <p id="finalBookingPeople"></p>
+                </div>
 
-                <p id="finalBookingDate"></p>
-
-                <p id="finalBookingTime"></p>
 
 
-                <p id="finalBookingBoat"></p>
 
-                <p id="finalSeats"></p>
+                <div id="finalSeatsHeader">
+                    <p>Seat No:</p>
+                    <p>Seat Price:</p>
+                </div>
+                <div id="finalSeats"></div>
+                <div id="finalCartHeader">
+                    <p>Food Name:</p>
+                    <p>Price:</p>
+                </div>
+                <div id="finalCart"></div>
 
                 <p id="finalBookingPrice"></p>
 
@@ -171,6 +184,7 @@
                 <button class="button" onclick="displayPageThree()">Back</button>
 
             </div>
+          
 
         </div>
     </div>
