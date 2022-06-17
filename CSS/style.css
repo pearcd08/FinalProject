@@ -28,12 +28,7 @@ body {
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
-
-  background-color: darkslategray;
-  overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
-  border: none;
+  background-color: darkslategray; 
   border-radius: 7px;  
 
 
@@ -176,26 +171,103 @@ position:absolute;
   position: absolute;
   font-size: 20px;
   display: grid;
-  grid-template-columns: repeat(1, 350px);
-  background-color: darkcyan;
-  border: 1px solid white;
-  width: 300px;
-  height: 500px;
+  background-color: white;;
+  width: 350px;
   margin-left: 1400px;
-  margin-top: 100px;
+  margin-top: 150px;
   border-radius: 7px;
+  border-top-left-radius: 7px ;
+  border-top-right-radius:7px ;
 }
-#priceContainer label {
-  margin-left: 30px;
-  text-align: left;
-  color: white;
-  font-size: 24px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+#priceContainer .bottomBookingRow{
+  display: grid;
+  grid-template-columns: repeat(3, 10px);
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  color: white;  background-color: darkcyan;
+
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+
+
 }
 
-#priceContainer button {
-  margin-top: 30px;
+#priceContainer h1{
+  margin-left: 30px;
+  width: 300px;
+  font-family: "Trebuchet MS";
+  font-size: 28px;
+  color: black;
+
+}
+.topBookingRow {
+  display: grid;
+  grid-template-columns: repeat(2, 140px); 
+  border-bottom : 1px solid black;
+  color: white;
+  background-color: darkcyan;
+  height:  50px;
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+
+}
+.topBookingRow .p{
+  height:  20px;
+  margin-left: 25px;
+  color: white;
+
+}
+#bottomBookingRow p{
+ 
+  margin-left: 25px;
+  background-color: darkcyan;;
+  color: white;
+
+
+}
+#bottomBookingRow {
+  display: grid;
+  grid-template-columns: repeat(2, 140px); 
+  background-color: darkcyan;
+  border-bottom-left-radius: 7px ;
+  border-bottom-right-radius: 7px ;
+
+}
+#priceContainer .bookingRow{
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  height:50px;
+  background-color: white;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding-left: 25px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+
+
+}
+
+#page2Confirm{
+ 
+margin-left: 225px;
+
+
+
+
+}
+
+.backButton{
+  margin-left: 25px;
+  margin-top: 25px;
+ 
+
+
 }
 
 
@@ -218,6 +290,15 @@ position:absolute;
   grid-template-columns: repeat(3, 350px);
   margin-left: 100px;
   margin-top: 70px;
+
+}
+
+#titleFood{
+  position:absolute;
+  color: white;
+  margin-left: 125px;
+  margin-top: 50px;
+  
 
 }
 
@@ -411,7 +492,7 @@ button {
 
 #boatContainer {
   position:absolute;
-  margin-top: 100px;
+  margin-top: 150px;
   margin-left: 680px;
 }
 

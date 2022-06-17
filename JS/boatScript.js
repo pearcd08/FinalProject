@@ -11,11 +11,12 @@ xmlDoc = xmlhttp.responseXML;
 
 ///different classes
 class Seat {
-  constructor(boat, seatID, price, booked) {
+  constructor(boat, seatID, price, booked, seatName) {
     this.boat = boat;
     this.seatID = seatID;
     this.price = price;
     this.booked = booked;
+    this.seatName = seatName;
   }
 }
 
@@ -44,6 +45,7 @@ let seatsArray = [];
 let foodArray = [];
 let weatherArray = [];
 let selectedSeats = [];
+
 
 ///different variables for the final confirmation
 let confirmedSeats = [];
@@ -83,6 +85,8 @@ function initiate() {
 
 function displayPageOne() {
   removeBoats();
+  selectedSeats= [];
+  removeAllBookingRows();
   document.getElementById("page1").style.display = "block";
   document.getElementById("page2").style.display = "none";
   document.getElementById("page3").style.display = "none";
@@ -103,16 +107,25 @@ function displayPageTwo() {
 
   let dateSelected = document.getElementById("bookingDate");
   let dateText = dateSelected.value;
-  
-  console.log(dateText);
 
+ 
+  selectedTime = timeText;
   let peopleSelected = document.getElementById("peopleSelect");
   let peopleText = peopleSelected.value;
-
-  if (checkWeather(dateText) === true) {
-    alert("Too cold to ");
+  console.log(peopleText);
+  if (dateText == ""){
+    alert("select a date");
   }
-  if (checkWeather(dateText) === false) {
+
+  else if (peopleText== ""){
+    alert("select number of people");
+  }
+
+  else if (checkWeather(dateText) === false) {
+    alert("Conditions unsuitable for booking date");
+  }
+  else {
+    selectedTime = timeText;
     selectedBoat = boatText;
     selectedTime = timeText;
     selectedDate = dateText;
@@ -127,7 +140,7 @@ function displayPageTwo() {
     randomBooking();
     markAsBooked();
     selectSeat();
-    displaySelectedWeather();
+   
 
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "block";
@@ -178,7 +191,7 @@ function getWeather() {
       displayWeather(data);
     });
 }
-
+let currentDate;
 ///displays the weather for the next four days
 function displayWeather(data) {
   let currentTemp = Number(data.current.temp);
@@ -186,19 +199,24 @@ function displayWeather(data) {
   let currentWords = currentDesc.split(" ");
 
   for (let i = 0; i < currentWords.length; i++) {
-    currentWords[i] = currentWords[i][0].toUpperCase() + currentWords[i].substr(1);
+    currentWords[i] =
+      currentWords[i][0].toUpperCase() + currentWords[i].substr(1);
   }
   let uppercaseCurrentDesc = currentWords.join(" ");
   let currentIcon = data.current.weather[0].icon;
+  let currentTimeStamp = data.current.dt;
+  let currentWeatherDate = new Date(currentTimeStamp * 1000).toISOString();
+  let currentFormatDate = currentWeatherDate.split("T")[0];
 
   document.getElementById("todayMax").innerHTML = currentTemp + "°C";
   document.getElementById("todayDesc").innerHTML = uppercaseCurrentDesc;
   document.getElementById("todayImg").src =
     "http://openweathermap.org/img/wn/" + currentIcon + "@4x.png";
+  currentDate = currentFormatDate;
 
   for (i = 1; i < 5; i++) {
     let temp = Number(data.daily[i].temp.day);
-    let desc = data.daily[i].weather[0].description;    
+    let desc = data.daily[i].weather[0].description;
     let descWords = desc.split(" ");
 
     for (let i = 0; i < descWords.length; i++) {
@@ -208,8 +226,8 @@ function displayWeather(data) {
 
     let timeStamp = data.daily[i].dt;
     let weatherDate = new Date(timeStamp * 1000).toISOString();
-    let formatDate = weatherDate.split('T')[0]
-    
+    let formatDate = weatherDate.split("T")[0];
+
     let icon = data.daily[i].weather[0].icon;
     let iconURL = "http://openweathermap.org/img/wn/" + icon + "@4x.png";
 
@@ -225,39 +243,61 @@ function displayWeather(data) {
 
 ///restricts the date from today to next 4 days
 function restrictDate() {
- 
-  var timezoneOffset = (new Date()).getTimezoneOffset() * 60000; 
-  var today = (new Date(Date.now() - timezoneOffset)).toISOString().split("T")[0];
+  var timezoneOffset = new Date().getTimezoneOffset() * 60000;
+  var today = new Date(Date.now() - timezoneOffset).toISOString().split("T")[0];
 
-  var nextWeekDate = new Date((Date.now() - timezoneOffset) + 4 * 24 * 60 * 60 * 1000)
+  var nextWeekDate = new Date(
+    Date.now() - timezoneOffset + 4 * 24 * 60 * 60 * 1000
+  )
     .toISOString()
     .split("T")[0];
   var bookingDate = document.getElementById("bookingDate");
   bookingDate.setAttribute("min", today);
   bookingDate.setAttribute("max", nextWeekDate);
-console.log(today);
+  console.log(today);
 }
+function checkTime(time) {
+  var todayDate = new Date();
+  var options = { hour12: false };
+  var todayDate24 = todayDate.toLocaleTimeString("en-NZ", options);
+  var format1 = todayDate24.replace(":", "");
+  var format2 = format1.replace(":", "");
+  var currentTime = format2.substring(0, 4);
+  var bookingTime = time.replace(":", "");
 
+  if (bookingTime < currentTime) {    
+    return false;
+  } else {
+    return true;
+  }
+}
 /// check to see if conditions are ok to sail
 function checkWeather(dateText) {
-
-
- 
-  for (i = 0; i < weatherArray.length; i++) {
-    let checkDate = weatherArray[i].date;
-    if ((checkDate == dateText)) {
-      let weather = weatherArray[i].desc;
-      console.log("dateText"+dateText);
-      
-
-      if (weatherArray[i].temp < 2 || weather.includes("Overast")) {
-        console.log(weatherArray[i].date)
-        console.log(weather);
-        return true;
-      } else {
-        console.log(weatherArray[i].date)
-        console.log(weather);
-        return false;
+  if (currentDate == dateText) {  
+    if (checkTime(bookedTime) === false) {
+      alert("Boat has already departed, pick another time or date");
+      return false;
+    }
+    else if(checkTime(bookedTime) === true) {
+      console.log("today, weather doesn't matter");
+      return true;
+    }
+  } else {
+    for (i = 0; i < weatherArray.length; i++) {
+      let checkDate = weatherArray[i].date;
+      if (checkDate == dateText) {
+        let weather = weatherArray[i].desc;
+        console.log("dateText" + dateText);
+        ///change value to test as all days are too cold
+        if (weatherArray[i].temp < 2 || weather.includes("Rain")) {
+          console.log(weatherArray[i].date);
+          console.log(weather);
+          return false;
+        } else {
+          console.log(weatherArray[i].date);
+          console.log(weather);
+          return true;
+        }
       }
     }
   }
@@ -281,7 +321,7 @@ function displaySelectedWeather() {
     }
   }
 }
-
+let = alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 ///Using DOM displays the TERE boat from the XML file
 function loadTere() {
   seatsArray = [];
@@ -308,8 +348,11 @@ function loadTere() {
       newSeat = document.createElement("div");
       newSeat.classList.add("seat");
       boatName = "tere";
+      let seatNumber = Number([i]) + 1;
+      newSeatID = seatNumber + alphabetArray[j];
       newSeat.id = count;
-      seatsArray.push(new Seat(boatName, count, price, false));
+
+      seatsArray.push(new Seat(boatName, count, price, false, newSeatID));
       document.getElementById(rowID).appendChild(newSeat);
       count++;
     }
@@ -341,9 +384,11 @@ function loadNui() {
       }
       newSeat = document.createElement("div");
       newSeat.classList.add("seat");
+      let seatNumber = Number([i]) + 1;
+      newSeatID = seatNumber + alphabetArray[j];
       newSeat.id = count;
       boatName = "nui";
-      seatsArray.push(new Seat(boatName, count, price, false));
+      seatsArray.push(new Seat(boatName, count, price, false,newSeatID));
       document.getElementById(rowID).appendChild(newSeat);
       count++;
     }
@@ -394,11 +439,12 @@ function clearSelected() {
   getPrice();
 }
 
-let seatsLeft = 0;
+
 ///Makes every seat an event listener and clicking on a seat will toggle selected
 function selectSeat() {
   let seatCount = 0;
   let numPeople = Number(selectedPeople);
+  seatsLeft = Number(numPeople) - Number(seatCount);
 
   if (seatCount < selectedPeople) {
   }
@@ -414,8 +460,10 @@ function selectSeat() {
           let selectedSeat = e.currentTarget.id;
           selectedSeats.push(selectedSeat);
           getPrice();
+          newSeatBookingRow(selectedSeat);
           seatCount++;
           seatsLeft = Number(numPeople) - Number(seatCount);
+          
         } else {
           alert("You have chosen seats for each person");
         }
@@ -429,7 +477,9 @@ function selectSeat() {
         if (myIndex !== -1) {
           selectedSeats.splice(myIndex, 1);
         }
+        removeBookingRow(seatID2);
         getPrice();
+        
         seatCount--;
         seatsLeft = Number(numPeople) - Number(seatCount);
       }
@@ -437,21 +487,78 @@ function selectSeat() {
   }
 }
 
+
+let allBookingRows = document.getElementsByClassName("bookingRow");
+function removeBookingRow(seat){
+  if (allBookingRows.length > 0){
+    let bookingRowID = "bookingRow"+seat;
+    console.log(bookingRowID);
+    let bookingRow = document.getElementById(bookingRowID)
+    bookingRow.parentNode.removeChild(bookingRow); 
+
+  }
+}
+
+function removeAllBookingRows() {
+  const rows = document.querySelectorAll(".bookingRow");
+
+  rows.forEach((row) => {
+    row.remove();
+    getPrice();
+  });
+}
+
+
+
+function newSeatBookingRow(seat){
+   
+  for(let i = 0; i < seatsArray.length; i++)
+  if(seat == seatsArray[i].seatID)
+  {
+    let seatName = seatsArray[i].seatName;
+    let seatPrice = seatsArray[i].price;
+    console.log(seatName+""+seatPrice);
+
+    let container = document.getElementById("bookingRowContainer");
+    let newRow = document.createElement("div");
+    newRow.className = "bookingRow";
+    newRow.id = "bookingRow" + seatsArray[i].seatID;
+    container.appendChild(newRow);
+    let p1 = document.createElement("p");
+    let bookingRowText = document.createTextNode(seatName);
+    p1.classname = "seatName";
+    p1.appendChild(bookingRowText);
+    newRow.appendChild(p1);
+    let p2 = document.createElement("p");
+    let priceText = document.createTextNode("$" + seatPrice);
+    p2.className = "seatPrice";
+    p2.appendChild(priceText);
+    newRow.appendChild(p2);
+  }
+}
+
+
+
+
+
+
+
 ///gets the price of each selected seat and displays in the priceContainer
 let finalSeatPrice = "";
 function getPrice() {
   let totalPrice = 0;
   for (i = 0; i < selectedSeats.length; i++) {
     let value = selectedSeats[i];
+    console.log(value);
     let seatPrice = seatsArray[value].price;
     totalPrice = Number(totalPrice) + Number(seatPrice);
   }
-
-  let textPrice = document.getElementById("totalPrice");
-  textPrice.value = "$" + totalPrice + ".00";
-  let textSeats = document.getElementById("totalSeats");
-  textSeats.value = selectedSeats;
+  document.getElementById("totalBookingPrice").innerHTML = "$"+totalPrice+".00";
   finalSeatPrice = totalPrice;
+
+ 
+  
+console.log("totalP"+totalPrice);
 }
 
 ///removes the boat ui on back button
@@ -639,7 +746,7 @@ function updateCartPrice() {
     let foodPrice = foodArray[value].foodPrice;
     totalPrice = Number(totalPrice) + Number(foodPrice);
   }
-  document.getElementById("cartPrice").innerHTML = "$" + totalPrice + ":00";
+  document.getElementById("cartPrice").innerHTML = "$" + totalPrice + ".00";
   totalCartPrice = totalPrice;
 }
 

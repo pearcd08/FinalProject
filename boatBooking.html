@@ -17,7 +17,7 @@
     <div id=bookingContainer>
         <div id="bookingBackground"></div>
         <div id="page1" style="display: block">
-            
+
             <div class="title1">
                 <h1>Weather Forecast</h1>
             </div>
@@ -42,90 +42,98 @@
                 </input>
                 <button id="button1" class="button" onclick="displayPageTwo()">Confirm</button>
             </div>
-            <div id="weatherContainer" class = "weatherContainer">
+            <div id="weatherContainer" class="weatherContainer">
                 <div id="iconsContainer">
 
                     <div class="icons">
                         <p class="weather" id="today"></p>
-                       
+
                         <p class="date" id="todayDate">Current Weather</p>
                         <img class="image" id="todayImg">
                         <p class="maxTemp" id="todayMax"></p>
                         <p class="weatherDescription" id="todayDesc"></p>
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day2"></p>                        
+                        <p class="weather" id="day2"></p>
                         <p class="date" id="day2Date"></p>
                         <img class="image" id="day2Img" src="">
                         <p class="maxTemp" id="day2Max"></p>
                         <p class="weatherDescription" id="day2Desc"></p>
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day3"></p>                        
+                        <p class="weather" id="day3"></p>
                         <p class="date" id="day3Date"></p>
-                        <img class="image" id="day3Img" src="">                        
+                        <img class="image" id="day3Img" src="">
                         <p class="maxTemp" id="day3Max"></p>
                         <p class="weatherDescription" id="day3Desc"></p>
 
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day4"></p>                       
+                        <p class="weather" id="day4"></p>
                         <p class="date" id="day4Date"></p>
-                        <img class="image" id="day4Img" src="">  
+                        <img class="image" id="day4Img" src="">
                         <p class="maxTemp" id="day4Max"></p>
                         <p class="weatherDescription" id="day4Desc"></p>
                     </div>
                     <div class="icons">
-                        <p class="weather" id="day5"></p>                   
+                        <p class="weather" id="day5"></p>
                         <p class="date" id="day5Date"></p>
-                        <img class="image" id="day5Img" src="">  
+                        <img class="image" id="day5Img" src="">
                         <p class="maxTemp" id="day5Max"></p>
                         <p class="weatherDescription" id="day5Desc"></p>
-                        
+
                     </div>
                 </div>
             </div>
-           
+
         </div>
 
         <div id="page2" style="display: none">
-            <p id = "boatName"></h1>
+            <h1 id="boatName">
+                </h1>
             <div id="boatContainer" class="boatContainer"></div>
+           
             <div id="priceContainer">
-                <label for="totalSeats">Selected Seats</label>
-                <br>
-                <input type="text" id="totalSeats" />
-                <br>
-                <br>
-                <label for="totalCost">Total Cost</label>
-                <br>
-                <input type="text" id="totalPrice" />
-                <br>
-                <button id="page2Confirm" class="button" onclick="displayPageThree()">Confirm</button>
-                <button id="page2Back" class="button" onclick="displayPageOne()">Back</button>          
+                <h1>Selected Seats</h1>
+                <div class="topBookingRow">
+                    <p>SeatID</p>
+                    <p>Price</p>
 
-                
-            </div>
-            <div id=newWeatherContainer class = "weatherContainer">
-                <p class="weather" id="day"></p>
-                <div class="image"></div>
-                <p class="date" id="selectedDate"></p>
-                <p class="maxTemp" id="selectedTemp"></p>
-                <p class="weatherDescription" id="selectedDesc"></p>
+                </div>
+                <div id="bookingRowContainer"></div>
+                <div id="bottomBookingRow">
+                    <p id>Total Price:</p>
+                    <p id="totalBookingPrice"></p>
+
+
+                    <button id="page2Confirm" class="button" onclick="displayPageThree()">Confirm</button>
+                   
+
+                </div>
+         
+ 
+
+
 
             </div>
+            <button id="page2Back" class="backButton" onclick="displayPageOne()">Back</button>   
+
+
+        
+            
+           
         </div>
         <div id="page3" style="display: none">
-            <div class="title1">
-                <h1>Select Food</h1>
-            </div>
+  
+                <h1 id = "titleFood">Select Food</h1>
+      
             <div class="title2">
                 <h1>Cart</h1>
             </div>
             <div id="menuContainer"></div>
             <div id="cartContainer" class="cartContainer">
                 <h1>Shopping Cart</h1>
-                <div class=topRow>
+                <div class="topRow">
                     <p>Food</p>
                     <p>Price</p>
                     <p>Quantity</p>
@@ -135,9 +143,10 @@
                     <p>Cart Price:</p>
                     <p id="cartPrice"></p>
                     <button id="confirmCartButton" class="button" onclick="displayPageFour()">Confirm</button>
-                    <button id="cartBack" class = "button" onclick="cartBack()">Back</button>
+                    
                 </div>
             </div>
+            <button id="cartBack" class="backButton" onclick="cartBack()">Back</button>
         </div>
 
 
@@ -160,10 +169,11 @@
                 <p id="finalTotalPrice"></p>
                 <button class="button" onclick="refresh()">Confirm</button>
                 <button class="button" onclick="displayPageThree()">Back</button>
-                
+
             </div>
 
         </div>
     </div>
 </body>
+
 </html>
