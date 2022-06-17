@@ -257,7 +257,7 @@ function checkWeather(dateText) {
         let weather = weatherArray[i].desc;
         console.log("dateText" + dateText);
         ///change value to test as all days are too cold
-        if (weatherArray[i].temp < 2 || weather.includes("Rain")) {
+        if (weatherArray[i].temp < 14 || weather.includes("Rain")) {
           console.log(weatherArray[i].date);
           console.log(weather);
           return false;
