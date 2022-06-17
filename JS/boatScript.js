@@ -408,19 +408,7 @@ function markAsBooked() {
   }
 }
 
-function markAsSelected() {
-  let newSeats = [];
-  if (bookedTime == selectedTime && bookedDate == date && bookedBoat == boat) {
-    for (i = 0; i < allSeats.length; i++) {
-      newSeats.push([i]);
-      for (j = 0; j < confirmedSeats.length; j++) {
-        if (newSeats[i] == confirmedSeats[j]) {
-          allSeats[i].classList.toggle("confirmed");
-        }
-      }
-    }
-  }
-}
+
 
 function clearSelected() {
   selectedSeats = [];
@@ -440,7 +428,9 @@ function selectSeat() {
       if (
         e.currentTarget.classList.contains("seat") &&
         !e.currentTarget.classList.contains("selected") &&
-        !e.currentTarget.classList.contains("booked")
+        !e.currentTarget.classList.contains("booked") &&
+        !e.currentTarget.classList.contains("confirmed") 
+
       ) {
         if (seatCount < numPeople) {
           e.currentTarget.classList.toggle("selected");
@@ -559,11 +549,65 @@ function backButton() {
   let textSeats = document.getElementById("totalSeats");
   textSeats.value = "";
 }
+function loadMenu() {
+  let menu = xmlDoc.getElementsByTagName("menu");
+  let food = menu[0].getElementsByTagName("food");
+  for (i = 0; i < food.length; i++) {
+    newFood = document.createElement("div");
+    foodID = "food" + i;
+    newFood.id = foodID;
+    newFood.className = "food";
+    foodName = food[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+
+    price = food[i].getElementsByTagName("price")[0].childNodes[0].nodeValue;
+    info = food[i].getElementsByTagName("info")[0].childNodes[0].nodeValue;
+    fImage = food[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
+    document.getElementById("menuContainer").appendChild(newFood);
+    foodContainer = document.getElementById(foodID);
+    //create title of food
+    let foodHeader = document.createElement("h1");
+    let headerText = document.createTextNode(foodName);
+    foodHeader.appendChild(headerText);
+    foodContainer.appendChild(foodHeader);
+    //create image for food
+    let foodImage = document.createElement("img");
+    foodImage.src = fImage;
+    foodImage.alt = foodName;
+    foodImageID = "image" + i;
+    foodImage.id = foodImageID;
+    foodImage.class = food;
+    foodImage.height = 200;
+    foodImage.width = 300;
+    foodContainer.appendChild(foodImage);
+
+    //create paragraphc for price
+    let paragraph2 = document.createElement("p");
+    let priceText = document.createTextNode("Price: $" + price + ".00");
+    paragraph2.appendChild(priceText);
+    foodContainer.appendChild(paragraph2);
+    //create paragraph for food info
+    let paragraph = document.createElement("p");
+    let infoText = document.createTextNode("Alergens: " + info);
+    paragraph.appendChild(infoText);
+    foodContainer.appendChild(paragraph);
+    //create numberpicker
+    let foodButton = document.createElement("button");
+    buttonID = "foodButton" + i;
+    foodButton.className = "foodButton";
+    foodButton.id = buttonID;
+    let buttonText = document.createTextNode("Add to Cart");
+    foodButton.appendChild(buttonText);
+    foodContainer.appendChild(foodButton);
+    //create add to cart button
+    foodArray.push(new Food(foodName, price, info, i));
+  }
+}
 
 let allFoodButtons = document.getElementsByClassName("foodButton");
-
 function addToCart() {
   for (i = 0; i < allFoodButtons.length; i++) {
+    
+ 
     allFoodButtons[i].addEventListener("click", function (e) {
       let selectedFood = e.currentTarget.id;
       let foodID = selectedFood.replace(/\D/g, "");
@@ -572,6 +616,24 @@ function addToCart() {
 
       ///add it to array get price and seat id
     });
+  }
+}
+
+let cartItems = [];
+
+function displayCart(foodID) {
+  if (cartItems.indexOf(foodID) == -1) {
+    newCartItem(foodID);
+    quantityChanged();
+    removeFromCart();
+  } else {
+    let newQuantity = document.getElementById("quantity" + foodID);
+    let oldValue = newQuantity.value;
+    let newValue = Number(oldValue) + 1;
+    newQuantity.value = newValue;
+    cartItems.push(foodID);
+
+    updateCartPrice();
   }
 }
 
@@ -589,19 +651,23 @@ function removeFromCart() {
     });
   }
 }
-let oldValue = 0;
+let oldValue;
 let allCartInputs = document.getElementsByClassName("cartQuantity");
 function quantityChanged() {
   for (var i = 0; i < allCartInputs.length; i++) {
     let input = allCartInputs[i];
-    oldValue = input.value[i];
+    oldValue = input.value;
+    console.log(oldValue);
     input.addEventListener("change", updateQuantity);
   }
 }
 
 function updateQuantity(event) {
+ 
   let input = event.target;
   let newValue = input.value;
+  console.log(oldValue);
+  console.log(newValue)
 
   let inputID = event.target.id;
   let foodID = inputID.replace(/\D/g, "");
@@ -648,23 +714,7 @@ function removeAllRows() {
   });
 }
 
-let cartItems = [];
 
-function displayCart(foodID) {
-  if (cartItems.indexOf(foodID) == -1) {
-    newCartItem(foodID);
-    quantityChanged();
-    removeFromCart();
-  } else {
-    let newQuantity = document.getElementById("quantity" + foodID);
-    let oldValue = newQuantity.value;
-    let newValue = Number(oldValue) + 1;
-    newQuantity.value = newValue;
-    cartItems.push(foodID);
-
-    updateCartPrice();
-  }
-}
 
 ///gets the letiables
 
@@ -724,74 +774,9 @@ function updateCartPrice() {
   totalCartPrice = totalPrice;
 }
 
-function refresh() {
- 
-  confirmSeats();
-  displayPageOne(); 
-  seatsArray = [];
-  selectedSeats = [];
-  cartItems = [];
-  allBookingRows = [];
-  allCartButtons = [];
-  allCartInputs = [];
-  allFoodButtons = [];
-  removeAllBookingRows();
-  removeAllRows();
-}
 
-function loadMenu() {
-  let menu = xmlDoc.getElementsByTagName("menu");
-  let food = menu[0].getElementsByTagName("food");
-  for (i = 0; i < food.length; i++) {
-    newFood = document.createElement("div");
-    foodID = "food" + i;
-    newFood.id = foodID;
-    newFood.className = "food";
-    foodName = food[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
 
-    price = food[i].getElementsByTagName("price")[0].childNodes[0].nodeValue;
-    info = food[i].getElementsByTagName("info")[0].childNodes[0].nodeValue;
-    fImage = food[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
-    document.getElementById("menuContainer").appendChild(newFood);
-    foodContainer = document.getElementById(foodID);
-    //create title of food
-    let foodHeader = document.createElement("h1");
-    let headerText = document.createTextNode(foodName);
-    foodHeader.appendChild(headerText);
-    foodContainer.appendChild(foodHeader);
-    //create image for food
-    let foodImage = document.createElement("img");
-    foodImage.src = fImage;
-    foodImage.alt = foodName;
-    foodImageID = "image" + i;
-    foodImage.id = foodImageID;
-    foodImage.class = food;
-    foodImage.height = 200;
-    foodImage.width = 300;
-    foodContainer.appendChild(foodImage);
 
-    //create paragraphc for price
-    let paragraph2 = document.createElement("p");
-    let priceText = document.createTextNode("Price: $" + price + ".00");
-    paragraph2.appendChild(priceText);
-    foodContainer.appendChild(paragraph2);
-    //create paragraph for food info
-    let paragraph = document.createElement("p");
-    let infoText = document.createTextNode("Alergens: " + info);
-    paragraph.appendChild(infoText);
-    foodContainer.appendChild(paragraph);
-    //create numberpicker
-    let foodButton = document.createElement("button");
-    buttonID = "foodButton" + i;
-    foodButton.className = "foodButton";
-    foodButton.id = buttonID;
-    let buttonText = document.createTextNode("Add to Cart");
-    foodButton.appendChild(buttonText);
-    foodContainer.appendChild(foodButton);
-    //create add to cart button
-    foodArray.push(new Food(foodName, price, info, i));
-  }
-}
 
 function confirmSeats() {
   for (i = 0; i < selectedSeats.length; i++) {
@@ -841,9 +826,7 @@ function confirmBooking() {
     }
   }
 
-  console.log(foodArray);
-  console.log(cartItems);
-
+ 
   
   for (let k = 0; k < foodArray.length; k++) {
 
@@ -880,9 +863,6 @@ function confirmBooking() {
  
 }
 
-
-
-
 function deleteReceipt(){
   document.getElementById("finalBookingPrice").innerHTML ="";
   document.getElementById("finalCartPrice").innerHTML ="";
@@ -893,17 +873,27 @@ function deleteReceipt(){
 }
 
 function refresh() {
- deleteReceipt();
-  confirmSeats();
-  displayPageOne(); 
-  seatsArray = [];
-  selectedSeats = [];
-  cartItems = [];
-  allBookingRows = [];
-  allCartButtons = [];
-  allCartInputs = [];
-  allFoodButtons = [];
-  removeAllBookingRows();
-  removeAllRows();
+  deleteReceipt();
+  document.getElementById("menuContainer").innerHTML="";
+  document.getElementById("cartPrice").innerHTML="";
+  deleteReceipt();
+  confirmSeats(); 
+  displayPageOne();
+ initiate();
+ removeAllRows();
+
+
+
+
+ cartItems = [];
+
+
+ updateCartPrice();
+
+  
 }
 
+function recieptBack(){
+  deleteReceipt();
+  displayPageThree();
+}

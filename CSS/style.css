@@ -22,7 +22,7 @@ body {
 #bookingContainer {
   position: relative;
   width: 1800px;
-  height: 1200px;
+  height: 2000px;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
@@ -492,7 +492,7 @@ button {
   
   background-color: white;
   width: 525px;
-  height: 600px;
+  height: auto;
   left: 575px;
   border: 1px solid black;
   margin-top: 100px;
@@ -556,4 +556,12 @@ button {
   grid-template-columns: repeat(2, 150px);
  
   
+}
+
+#buttonRefresh{
+  margin-left: 100px;
+
+}
+#buttonConfirm{
+
 }
