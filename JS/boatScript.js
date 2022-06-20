@@ -79,8 +79,8 @@ function displayPageOne() {
   removeBoats();
   selectedSeats = [];
   removeAllBookingRows();
-  document.getElementById("boatName1").style.display ="none";
-  document.getElementById("boatName2").style.display ="none";
+  document.getElementById("boatName1").style.display = "none";
+  document.getElementById("boatName2").style.display = "none";
   document.getElementById("page1").style.display = "block";
   document.getElementById("page2").style.display = "none";
   document.getElementById("page3").style.display = "none";
@@ -115,15 +115,14 @@ function displayPageTwo() {
     selectedPeople = peopleText;
     if (boatText == "Tere Boat") {
       loadTere();
-      document.getElementById("boatName1").style.display ="block";
+      document.getElementById("boatName1").style.display = "block";
     } else {
       loadNui();
-      document.getElementById("boatName2").style.display ="block";
+      document.getElementById("boatName2").style.display = "block";
     }
     randomBooking();
     selectSeat();
     popup();
-
 
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "block";
@@ -158,12 +157,10 @@ function forceDisplayPageTwo() {
     selectedPeople = peopleText;
     if (boatText == "Tere Boat") {
       loadTere();
-      document.getElementById("boatName1").style.display ="block";
- 
+      document.getElementById("boatName1").style.display = "block";
     } else {
       loadNui();
-      document.getElementById("boatName2").style.display ="block";
-   
+      document.getElementById("boatName2").style.display = "block";
     }
     markAsBooked();
     randomBooking();
@@ -447,7 +444,6 @@ function markAsBooked() {
   }
 }
 
-
 function popup() {
   for (i = 0; i < allSeats.length; i++) {
     allSeats[i].addEventListener("mouseenter", function (e) {
@@ -531,6 +527,7 @@ function selectSeat() {
 }
 
 function newSeatBookingRow(seat2) {
+  let count = 0;
   for (let i = 0; i < seatsArray.length; i++)
     if (seat2 == seatsArray[i].seatID) {
       let seatName = seatsArray[i].seatName;
@@ -538,7 +535,8 @@ function newSeatBookingRow(seat2) {
       let container = document.getElementById("bookingRowContainer");
       let newRow = document.createElement("div");
       newRow.className = "bookingRow";
-    
+      newRow.id = "booking" + seat2 + "row";
+
       container.appendChild(newRow);
       let p1 = document.createElement("p");
       let bookingRowText = document.createTextNode(seatName);
@@ -546,16 +544,17 @@ function newSeatBookingRow(seat2) {
       p1.appendChild(bookingRowText);
       newRow.appendChild(p1);
       let p2 = document.createElement("p");
-      let priceText = document.createTextNode("$" + seatPrice);   
+      let priceText = document.createTextNode("$" + seatPrice);
       p2.appendChild(priceText);
       newRow.appendChild(p2);
+      count++;
     }
 }
 
 let allBookingRows = document.getElementsByClassName("bookingRow");
 function removeBookingRow(seat) {
   if (allBookingRows.length > 0) {
-    let bookingRowID = "bookingRow" + seat;
+    let bookingRowID = "booking" + seat + "row";
     let bookingRow = document.getElementById(bookingRowID);
     bookingRow.parentNode.removeChild(bookingRow);
   }
@@ -733,6 +732,7 @@ function removeFromCart() {
       let button = e.currentTarget.id;
       let ID = button.replace(/\D/g, "");
       let cartRow = "row" + ID;
+      console.log("ROWID1" + cartRow);
       removeRow(cartRow, ID);
 
       ///add it to array get price and seat id
@@ -740,27 +740,20 @@ function removeFromCart() {
   }
 }
 function removeRow(cartRow, ID) {
-  if (allCartButtons.length > 0) {
-    for (i = 0; i < cartArray.length; i++) {
-      if (cartArray[i].cartID == ID) {
-        console.log("REMOVE ROW");
-        cartArray.splice([i], 1);
-      }
+  let cart = document.getElementById(cartRow);
+  cart.parentNode.removeChild(cart);
+  cart.parentNode.removeChild(cart);
+  cart.parentNode.removeChild(cart);
+  for (i = 0; i < cartArray.length; i++) {
+    if (cartArray[i].cartID == ID) {
+      console.log("REMOVE ROW");
+      cartArray.splice([i], 1);
+      updateCartPrice();
+      newCartRow();
     }
-    let cart = document.getElementById(cartRow);
-    cart.parentNode.removeChild(cart);
-
-    const newArray = cartItems.filter(function (x) {
-      return x !== ID;
-    });
-
-    cartItems = [];
-    cartItems = newArray;
-
-    updateCartPrice();
-  } else {
   }
 }
+
 let oldValue;
 let allCartInputs = document.getElementsByClassName("cartQuantity");
 function quantityChanged() {
