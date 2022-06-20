@@ -38,9 +38,10 @@
                     <option value="nui">Nui Boat</option>
                 </select>
                 <label for="peopleSelect">Number of People</label>
-                <input type="number" id="peopleSelect" min="1" max="5">
+                <input type="number" id="peopleSelect" min="1" max="5" onkeydown="return false">
                 </input>
                 <button id="button1" class="button" onclick="displayPageTwo()">Confirm</button>
+                <button id="button2" class="button" onclick="forceDisplayPageTwo()">Test</button>
             </div>
             <div id="weatherContainer" class="weatherContainer">
                 <div id="iconsContainer">
@@ -89,24 +90,50 @@
         </div>
 
         <div id="page2" style="display: none">
-            <h1 id="boatName">
-            </h1>
+       
+            <div id="boatName1" style="display:none">               
+                <h1><span></span></h1>                
+            </div>
+            <div id="boatName2">               
+                <h1><span></span></h1>                
+            </div>
+
+
             <div id="boatContainer" class="boatContainer"></div>
+
+            <div id="seatPopup" style ="display:none">
+                <p id = "popupName"></p>
+                <p id = "popupPrice"></p>
+                
+            </div>
+         
+ 
+
+
+            <div id="symbolContainer">
+                <p>Available :</p>
+                <div class = symbol style="background-color:white"></div>
+                <p>Booked :</p>
+                <div class = symbol style="background-color:orange"></div>
+                <p>Selected :</p>
+                <div class = symbol style="background-color:greenyellow"></div>
+                <p>Booked By You :</p>
+                <div class = symbol style="background-color:blue"></div>
+            </div>
 
             <div id="priceContainer">
                 <h1>Selected Seats</h1>
                 <div class="topBookingRow">
                     <p>SeatID</p>
                     <p>Price</p>
-
                 </div>
                 <div id="bookingRowContainer"></div>
                 <div id="bottomBookingRow">
                     <p id>Total Price:</p>
                     <p id="totalBookingPrice"></p>
-
-
+                    <button id="page2Back" class="button" onclick="displayPageOne()">Back</button>
                     <button id="page2Confirm" class="button" onclick="displayPageThree()">Confirm</button>
+                    
 
 
                 </div>
@@ -116,7 +143,7 @@
 
 
             </div>
-            <button id="page2Back" class="backButton" onclick="displayPageOne()">Back</button>
+         
 
 
 
@@ -142,48 +169,60 @@
                 <div id="bottomRow">
                     <p>Cart Price:</p>
                     <p id="cartPrice"></p>
-                    <button id="confirmCartButton" class="button" onclick="displayPageFour()">Confirm</button>
+                    <button id="cartBack" class="button" onclick="cartBack()">Back</button>
+                    <button id="cartConfirm" class="button" onclick="displayPageFour()">Confirm</button>
 
                 </div>
             </div>
-            <button id="cartBack" class="backButton" onclick="cartBack()">Back</button>
+           
         </div>
 
 
         <div id="page4" style="display: none">
             <div id="bookingDetails">
+                
+                <div id="bookingRow1Header">
+                    <p>Booking Date:</p>
+                    <p>Time of Depature:</p>
+                </div>                
                 <div id="bookingRow1">
                     <p id="finalBookingDate"></p>
                     <p id="finalBookingTime"></p>
                 </div>
+
+                <div id="bookingRow2Header">
+                    <p>Boat Name:</p>
+                    <p>Number of People:</p>
+                </div>
+
                 <div id="bookingRow2">
                     <p id="finalBookingBoat"></p>
                     <p id="finalBookingPeople"></p>
                 </div>
-
-
-
-
-                <div id="finalSeatsHeader">
+                <div id="bookingRow3Header">
                     <p>Seat No:</p>
                     <p>Seat Price:</p>
                 </div>
-                <div id="finalSeats"></div>
-                <div id="finalCartHeader">
-                    <p>Food Name:</p>
-                    <p>Price:</p>
+                <div id="bookingRow3"></div>
+                <p id="totalSeatPrice"></p>
+                <div id="bookingRow4Header">
+                    <p>Food Name:</p>                         
+                    <p>Total Food Price:</p>             
+                    
                 </div>
-                <div id="finalCart"></div>
+              
+                <div id="bookingRow4">                    
+                    
+                </div>               
 
-                <p id="finalBookingPrice"></p>
+                <p id="totalMenuPrice"></p>
 
-                <p id="finalCartPrice"></p>
-
-                <p id="finalTotalPrice"></p>
+                <p id="totalPrice"></p>
              
-                <button id="buttonRefresh" onclick="refresh()">Confirm</button>
-                <button id="buttonBack"  onclick="recieptBack()">Back</button>
             </div>
+            <div id = "page4Buttons"> <button id="page4Confirm" onclick="refresh()">Confirm</button>
+                <button id="page4Back"  onclick="recieptBack()">Back</button></div>
+           
           
           
 
