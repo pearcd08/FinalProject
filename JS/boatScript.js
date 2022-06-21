@@ -715,8 +715,7 @@ function addToCart() {
 }
 
 function displayCart(foodID) {
-  if (cartArray.length > 0) {
-    console.log("FOODID" + foodID);
+  if (cartArray.length > 0) {  
     for (i = 0; i < cartArray.length; i++) {
       if (cartArray[i].cartID == foodID) {
         console.log("Already in Cart Array");
@@ -788,28 +787,22 @@ function updateQuantity(event) {
   if (oldValue < newValue) {
     oldValue = newValue;
     for (i = 0; i < cartArray.length; i++) {
-      if (cartArray[i].cartID == foodID) {
-        let oldQuantity = cartArray[i].quantity;
-        let newQuantity = Number(oldQuantity) + 1;
+      if (cartArray[i].cartID == foodID) {           
         let price = cartArray[i].price;
-        let totalPrice = Number(price) * Number(newQuantity);
-        cartArray[i].quantity = newQuantity;
-        cartArray[i].totalPrice = totalPrice;
-        console.log(cartArray);
+        let totalPrice = Number(price) * Number(newValue);
+        cartArray[i].quantity = newValue;
+        cartArray[i].totalPrice = totalPrice;     
         updateCartPrice();
       }
     }
   } else {
     oldValue = newValue;
     for (i = 0; i < cartArray.length; i++) {
-      if (cartArray[i].cartID == foodID) {
-        let oldQuantity2 = cartArray[i].quantity;
-        let newQuantity2 = Number(oldQuantity2) - 1;
+      if (cartArray[i].cartID == foodID) {          
         let price2 = cartArray[i].price;
-        let totalPrice2 = Number(price2) * Number(newQuantity2);
-        cartArray[i].quantity = newQuantity2;
-        cartArray[i].totalPrice = totalPrice2;
-        console.log(cartArray);
+        let totalPrice2 = Number(price2) * Number(newValue);
+        cartArray[i].quantity = newValue;
+        cartArray[i].totalPrice = totalPrice2;      
         updateCartPrice();
       }
     }
@@ -878,17 +871,13 @@ function confirmBooking() {
 
   for (let k = 0; k < cartArray.length; k++) {
     let fName = cartArray[k].itemName;
-    let fPrice = cartArray[k].price;
     let quantity = cartArray[k].quantity;
     let tPrice = cartArray[k].totalPrice;
     let rowToAttach = document.getElementById("bookingRow4");
-
     let p1 = document.createElement("p");
-
     let foodText = document.createTextNode(fName + " x" + quantity);
     p1.appendChild(foodText);
     rowToAttach.appendChild(p1);
-
     let p2 = document.createElement("p");
     let foodPrice = document.createTextNode("$" + tPrice + ".00");
     p2.appendChild(foodPrice);
