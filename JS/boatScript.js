@@ -693,7 +693,6 @@ function newCartItem(foodID) {
   cartButton.appendChild(buttonText);
   newRow.appendChild(cartButton);
   ///pushes food id into cart array
-  cartItems.push(foodID);
   console.log(cartArray);
 
   cartArray.push(new Cart(foodName, 1, foodPrice, foodPrice, foodID));
@@ -715,9 +714,20 @@ function addToCart() {
   }
 }
 
-let cartItems = [];
 function displayCart(foodID) {
-  if (cartItems.indexOf(foodID) == -1) {
+  if (cartArray.length > 0) {
+    console.log("FOODID" + foodID);
+    for (i = 0; i < cartArray.length; i++) {
+      if (cartArray[i].cartID == foodID) {
+        console.log("Already in Cart Array");
+      } else {
+        newCartItem(foodID);
+        quantityChanged();
+        removeFromCart();
+      }
+    }
+  }
+  if (cartArray.length == 0) {
     newCartItem(foodID);
     quantityChanged();
     removeFromCart();
@@ -732,24 +742,28 @@ function removeFromCart() {
       let button = e.currentTarget.id;
       let ID = button.replace(/\D/g, "");
       let cartRow = "row" + ID;
-      console.log("ROWID1" + cartRow);
-      removeRow(cartRow, ID);
+
+      removeCartRow(e);
 
       ///add it to array get price and seat id
     });
   }
 }
-function removeRow(cartRow, ID) {
-  let cart = document.getElementById(cartRow);
-  cart.parentNode.removeChild(cart);
-  cart.parentNode.removeChild(cart);
-  cart.parentNode.removeChild(cart);
-  for (i = 0; i < cartArray.length; i++) {
-    if (cartArray[i].cartID == ID) {
-      console.log("REMOVE ROW");
-      cartArray.splice([i], 1);
-      updateCartPrice();
-      newCartRow();
+function removeCartRow(e) {
+  let rowToDelete = e.currentTarget.parentElement;
+  let rowID1 = rowToDelete.id;
+  let rowID2 = rowID1.slice(3);
+  console.log(rowID2);
+
+  if (allCartButtons.length > 0) {
+    for (i = 0; i < cartArray.length; i++) {
+      if (cartArray[i].cartID == rowID2) {
+        console.log("REMOVE ROW");
+        rowToDelete.remove();
+        cartArray.splice([i], 1);
+
+        updateCartPrice();
+      }
     }
   }
 }
@@ -832,7 +846,7 @@ function confirmSeats() {
       }
     }
   }
-  document.getElementById("menuContainer").scrollIntoView();
+
   bookedTime = selectedTime;
   bookedDate = selectedDate;
   bookedBoat = selectedBoat;
@@ -914,9 +928,6 @@ function refresh() {
   foodArray = [];
   initiate();
   removeAllRows();
-
-  cartItems = [];
-
   updateCartPrice();
 }
 
